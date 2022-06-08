@@ -1,0 +1,12 @@
+
+.PlayerFooterWrapper {
+    position: fixed;
+    bottom: 0px;
+    height: 70px;
+    width: 100%;
+    background-color: #e1cccc;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
