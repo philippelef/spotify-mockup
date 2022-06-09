@@ -29,17 +29,42 @@ interface Props {
 }
 
 const TrackItem = ({ trackIndex, playlistTrack }: TrackItemProps) => {
-  const { setSong, setPlay } = usePlay()
+  const { song, setSong, play, setPlay } = usePlay()
+
+  const [isCurrentSong, setIsCurrentSong] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (song === playlistTrack.track) {
+      setIsCurrentSong(true)
+    }
+    else {
+      setIsCurrentSong(false)
+    }
+  }, [song])
+
 
   return (
     <div className={styles.trackItemWrapper}>
-      <button onClick={() => {
-        setPlay(false)
-        setSong(playlistTrack.track)
-        setPlay(true)
-      }}>
-        Play
-      </button>
+      {playlistTrack.track.preview_url != null &&
+        <button onClick={() => {
+          if (isCurrentSong) {
+            setPlay(!play)
+          }
+          else {
+            setSong(playlistTrack.track)
+          }
+        }}>
+          <a>
+            {isCurrentSong && play ? 'pause' : 'play'}
+          </a>
+        </button>
+      }
+      {
+        playlistTrack.track.preview_url == null &&
+        <a>No Play !</a>
+
+      }
+
       <div>
         {playlistTrack.track.name} - {playlistTrack.added_at}
       </div>
