@@ -14,7 +14,7 @@ const TrackItem = ({ track }: any) => {
 
     useEffect(() => {
         setLiked(isFav(track))
-    }, [fav.slice(-1)])
+    }, [fav])
 
     useEffect(() => {
         if (song !== track) {

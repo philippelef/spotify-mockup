@@ -64,7 +64,8 @@ export function FavProvider({ children }: Props) {
 
     const setFav = (favorites: Favorites) => {
         writeFavorites(favorites)
-        handleFav(favorites.favList)
+        handleFav([...favorites.favList])
+        // handleFav(favorites.favList)
     }
 
     const addFav = (newTrack: Track) => {
