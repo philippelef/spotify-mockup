@@ -2,13 +2,11 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePlay } from "../context/PlayContext"
 import { useRouter } from 'next/router';
 import { useFav, writeFavorites } from '../context/FavContext';
 import { fetchFavorites } from '../context/FavContext';
-import { isArrayBufferView } from 'util/types';
-import Favorites from './favorites';
 
 
 export type Track = {
@@ -24,6 +22,7 @@ type PlaylistTrack = {
 
 interface TrackItemProps {
   playlistTrack: PlaylistTrack;
+  initLike: boolean;
 }
 
 interface Props {
@@ -32,18 +31,12 @@ interface Props {
   favorites: { favList: string[] }
 }
 
-const TrackItem = ({ playlistTrack }: TrackItemProps) => {
+const TrackItem = ({ playlistTrack, initLike }: TrackItemProps) => {
   const { song, setSong, play, setPlay } = usePlay()
   const { addFav, removeFav, isFav } = useFav()
   const [isCurrentSong, setIsCurrentSong] = useState<boolean>(false)
 
-  const [liked, setLiked] = useState<boolean>(false)
-
-  useEffect(() => {
-    console.log("Pipi Raffraichi")
-    setLiked(isFav(playlistTrack.track.id))
-  })
-
+  const [liked, setLiked] = useState<boolean>(initLike)
 
   useEffect(() => {
     if (song !== playlistTrack.track) {
@@ -130,6 +123,7 @@ const Home: NextPage<Props> = (props) => {
         return (
           <TrackItem
             key={playlistTrack.track.id}
+            initLike={props.favorites.favList.indexOf(playlistTrack.track.id) != -1}
             playlistTrack={playlistTrack} />
         )
       }

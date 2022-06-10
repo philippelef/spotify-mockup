@@ -7,8 +7,6 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
-
-
     return (
         <div className={styles.Root}>
             <main className={styles.MainView}>

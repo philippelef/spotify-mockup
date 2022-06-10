@@ -32,9 +32,7 @@ type Favorites = {
 }
 
 export function initFavorites(): Favorites {
-    // localStorage.setItem("favorites", JSON.stringify({ favList: [] }))
     const favorites = { favList: [] }
-    console.log("INIT FAVORITES")
     writeFavorites(favorites)
     return { favList: [] }
 }
@@ -51,8 +49,6 @@ export function fetchFavorites(context: any): Favorites {
 }
 
 export function writeFavorites(favorites: Favorites) {
-    // localStorage.setItem("favorites", JSON.stringify(favorites))
-    console.log("favorites: ", favorites)
     nookies.set(null, "favorites", JSON.stringify(favorites), { path: "/" })
 }
 
@@ -65,8 +61,11 @@ export function FavProvider({ children }: Props) {
     }
 
     const addFav = (id: string) => {
+        if (isFav(id)) {
+            console.error('Cannot Add Fav Twice')
+            return false
+        }
         try {
-            console.log("Adding Fav!")
             var favorites: Favorites = { favList: fav }
             favorites.favList.push(id)
             writeFavorites(favorites)
@@ -81,7 +80,6 @@ export function FavProvider({ children }: Props) {
 
     const removeFav = (id: string) => {
         try {
-            console.log("Removing Fav!")
             var favorites: Favorites = { favList: fav }
             const index = favorites.favList.indexOf(id)
             if (index > -1) {
