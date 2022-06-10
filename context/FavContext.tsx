@@ -1,11 +1,12 @@
 import { createContext, useState, useContext, ReactNode, useEffect, useRef } from 'react'
 import nookies from 'nookies'
+import { Track } from '../helpers/types';
 
 type favContextType = {
-    fav: string[];
-    addFav: (id: string) => void;
-    removeFav: (id: string) => void;
-    isFav: (id: string) => boolean;
+    fav: Track[];
+    addFav: (track: Track) => void;
+    removeFav: (track: Track) => void;
+    isFav: (track: Track) => boolean;
     setFav: (favorites: Favorites) => void;
 };
 
@@ -28,7 +29,7 @@ type Props = {
 };
 
 type Favorites = {
-    favList: string[]
+    favList: Track[]
 }
 
 export function initFavorites(): Favorites {
@@ -39,7 +40,8 @@ export function initFavorites(): Favorites {
 
 export function fetchFavorites(context: any): Favorites {
     try {
-        return JSON.parse(nookies.get(context).favorites)
+        var favorites: Favorites = JSON.parse(nookies.get(context).favorites)
+        return favorites
     }
     catch (e) {
         console.error("Error while parsing localStorage favorites: ", e)
@@ -49,27 +51,31 @@ export function fetchFavorites(context: any): Favorites {
 }
 
 export function writeFavorites(favorites: Favorites) {
-    nookies.set(null, "favorites", JSON.stringify(favorites), { path: "/" })
+    try {
+        nookies.set(null, "favorites", JSON.stringify(favorites), { path: "/" })
+    }
+    catch (e) {
+        console.log("Can't write fav")
+    }
 }
 
 export function FavProvider({ children }: Props) {
-    const [fav, handleFav] = useState<string[]>([]);
+    const [fav, handleFav] = useState<Track[]>([]);
 
     const setFav = (favorites: Favorites) => {
-        console.log("updating favs look", favorites)
+        writeFavorites(favorites)
         handleFav(favorites.favList)
     }
 
-    const addFav = (id: string) => {
-        if (isFav(id)) {
+    const addFav = (newTrack: Track) => {
+        if (isFav(newTrack)) {
             console.error('Cannot Add Fav Twice')
             return false
         }
         try {
             var favorites: Favorites = { favList: fav }
-            favorites.favList.push(id)
-            writeFavorites(favorites)
-            handleFav(favorites.favList)
+            favorites.favList.push(newTrack)
+            setFav(favorites)
             return true
         }
         catch (e) {
@@ -78,26 +84,24 @@ export function FavProvider({ children }: Props) {
         }
     }
 
-    const removeFav = (id: string) => {
+    const removeFav = (track: Track) => {
         try {
-            var favorites: Favorites = { favList: fav }
-            const index = favorites.favList.indexOf(id)
+            var newFavorites: Favorites = { favList: [...fav] }
+            const index = newFavorites.favList.findIndex(elt => elt.id === track.id)
             if (index > -1) {
-                favorites.favList.splice(index, 1)
-                writeFavorites(favorites)
-                handleFav(favorites.favList)
+                newFavorites.favList.splice(index, 1)
+                setFav(newFavorites)
                 return true
             }
         }
         catch (e) {
-            console.error('Error while deleting favorite nb ', id);
+            console.error('Error while deleting favorite nb ', track.id);
         }
         return false
     }
 
-    const isFav = (id: string): boolean => {
-        const present: boolean = fav.indexOf(id) != -1
-        return present
+    const isFav = (track: Track): boolean => {
+        return fav.some(elt => elt.id === track.id)
     }
 
     const value = {

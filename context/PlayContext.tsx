@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, ReactNode, useEffect, useRef } from 'react'
-import { Track } from '../pages/index'
+import { Track } from '../helpers/types';
 
 const initialSong: Track = {
     name: '',
@@ -111,13 +111,6 @@ export function PlayProvider({ children }: Props) {
         }
     }, [play])
 
-    // useEffect(() => {
-    //     if (playRequest == true) {
-    //         playSong()
-    //         setPlayRequest(false)
-    //     }
-    // }, [playRequest])
-
 
     useEffect(() => {
         refPlayer.current.volume = volume;
@@ -134,6 +127,7 @@ export function PlayProvider({ children }: Props) {
     return (
         <PlayContext.Provider value={value}>
             <audio
+                // onCanPlay={() => console.log("Can Play")}
                 ref={refPlayer}
                 onEnded={() => setPlay(false)}
             >
