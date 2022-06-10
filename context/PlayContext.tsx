@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, ReactNode } from 'react'
+import { createContext, useState, useContext, ReactNode, useEffect, useRef } from 'react'
 import { Track } from '../pages/index'
 
 const initialSong: Track = {
@@ -7,20 +7,34 @@ const initialSong: Track = {
     preview_url: ''
 }
 
+
+const initialVolume: number = 0.5
+const initialMuted = initialVolume == 0 ? true : false
+
 type playContextType = {
     play: boolean;
     setPlay: (newState: boolean) => void;
+    playRequest: boolean;
+    setPlayRequest: (newState: boolean) => void;
+    volume: number;
+    setVolume: (newVolume: number) => void;
+    muted: boolean,
+    setMuted: (newState: boolean) => void;
     song: Track;
-    setSong: (newSong: Track) => void;
-    skipSong: () => void;
+    setSong: (newSong: Track, playInstant?: boolean) => void;
 };
 
 const playContextDefaultValues: playContextType = {
     play: false,
     setPlay: () => { },
+    playRequest: false,
+    setPlayRequest: () => { },
+    volume: initialVolume,
+    setVolume: () => { },
+    muted: initialMuted,
+    setMuted: () => { },
     song: initialSong,
-    setSong: (newSong: Track) => { },
-    skipSong: () => null,
+    setSong: () => { },
 };
 
 const PlayContext = createContext<playContextType>(playContextDefaultValues);
@@ -40,25 +54,93 @@ export function PlayProvider({ children }: Props) {
         handlePlay(newState)
     }
 
-    const [song, handleSong] = useState<Track>(initialSong);
-    const setSong = (newSong: Track) => {
-        handleSong(newSong);
+    const [volume, handleVolume] = useState<number>(initialVolume)
+    const setVolume = (newVolume: number) => {
+        handleVolume(newVolume)
     }
 
-    const skipSong = () => {
-        setSong(initialSong);
+    const [muted, handleMuted] = useState<boolean>(initialMuted)
+    const setMuted = (newState: boolean) => {
+        handleMuted(newState);
+    }
+
+    const [playRequest, handlePlayRequest] = useState<boolean>(false)
+
+    const setPlayRequest = (newState: boolean) => {
+        handlePlayRequest(newState)
+    }
+
+
+    const [song, handleSong] = useState<Track>(initialSong);
+    const setSong = (newSong: Track, playInstant: boolean = false) => {
+        handleSong(newSong);
+        refPlayer.current.load()
+        if (playInstant) {
+            playSong()
+        }
     }
 
     const value = {
-        play,
-        setPlay,
-        song,
-        setSong,
-        skipSong,
+        play, setPlay,
+        playRequest, setPlayRequest,
+        volume, setVolume,
+        muted, setMuted,
+        song, setSong,
     }
+
+    const refPlayer = useRef<any>()
+
+    const playSong = async () => {
+        try {
+            await refPlayer.current.play()
+            setPlay(true)
+        }
+        catch (e) {
+            refPlayer.current.pause()
+            console.log("error while trying to play song: ", e)
+            setPlay(false)
+        }
+    }
+
+    useEffect(() => {
+        if (play == true) {
+            playSong()
+        }
+        else {
+            refPlayer.current.pause()
+        }
+    }, [play])
+
+    // useEffect(() => {
+    //     if (playRequest == true) {
+    //         playSong()
+    //         setPlayRequest(false)
+    //     }
+    // }, [playRequest])
+
+
+    useEffect(() => {
+        refPlayer.current.volume = volume;
+        if (volume == 0) {
+            setMuted(true)
+            refPlayer.current.muted = true;
+        }
+        else {
+            setMuted(false)
+            refPlayer.current.muted = false;
+        }
+    }, [volume])
 
     return (
         <PlayContext.Provider value={value}>
+            <audio
+                ref={refPlayer}
+                onEnded={() => setPlay(false)}
+            >
+                <source
+                    src={song.preview_url}
+                />
+            </audio >
             {children}
         </PlayContext.Provider>
     );

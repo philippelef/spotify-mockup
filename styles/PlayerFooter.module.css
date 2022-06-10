@@ -1,8 +1,7 @@
-
 .PlayerFooterWrapper {
     position: fixed;
     bottom: 0px;
-    height: 70px;
+    height: var(--footer-height);
     width: 100%;
     background-color: #e1cccc;
     display: flex;

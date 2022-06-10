@@ -1,11 +1,11 @@
-.App {
-  min-height: 100vh;
-}
-
 .trackItemWrapper {
   width: 100%;
   display: flex;
   padding: 0.2em 2em;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.trackItemWrapperCurrent {
+  background-color: #ffd9d9;
 }

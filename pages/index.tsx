@@ -3,9 +3,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePlay } from "../context/PlayContext"
-import PlayerFooter from '../components/PlayerFooter';
 
 export type Track = {
   name: string;
@@ -29,31 +28,32 @@ interface Props {
 }
 
 const TrackItem = ({ trackIndex, playlistTrack }: TrackItemProps) => {
-  const { song, setSong, play, setPlay } = usePlay()
+  const { song, setSong, play, setPlay, setPlayRequest } = usePlay()
 
   const [isCurrentSong, setIsCurrentSong] = useState<boolean>(false)
 
   useEffect(() => {
-    if (song === playlistTrack.track) {
-      setIsCurrentSong(true)
+    if (song !== playlistTrack.track) {
+      setIsCurrentSong(false)
     }
     else {
-      setIsCurrentSong(false)
+      setIsCurrentSong(true)
     }
   }, [song])
 
 
   return (
-    <div className={styles.trackItemWrapper}>
+    <div className={`${styles.trackItemWrapper} ${isCurrentSong ? styles.trackItemWrapperCurrent : ''}`}>
       {playlistTrack.track.preview_url != null &&
         <button onClick={() => {
           if (isCurrentSong) {
             setPlay(!play)
           }
           else {
-            setSong(playlistTrack.track)
+            setSong(playlistTrack.track, true)
           }
-        }}>
+        }
+        }>
           <a>
             {isCurrentSong && play ? 'pause' : 'play'}
           </a>
@@ -75,10 +75,14 @@ const TrackItem = ({ trackIndex, playlistTrack }: TrackItemProps) => {
 
 
 const Home: NextPage<Props> = (props) => {
+  const { setSong } = usePlay();
+
+  useEffect(() => {
+    setSong(props.tracks[0].track)
+  }, [])
+
   return (
-    <div className={styles.App}>
-      <PlayerFooter
-      />
+    <div>
       <div>
         <Image
           src={props.url}
@@ -89,6 +93,15 @@ const Home: NextPage<Props> = (props) => {
       </div>
       {/* {JSON.stringify(props.tracks)} */}
 
+      {props.tracks.map((playlistTrack, index) => {
+        return (
+          <TrackItem
+            key={playlistTrack.track.id}
+            trackIndex={index}
+            playlistTrack={playlistTrack} />
+        )
+      }
+      )}
       {props.tracks.map((playlistTrack, index) => {
         return (
           <TrackItem
