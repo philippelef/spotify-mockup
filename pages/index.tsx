@@ -39,7 +39,7 @@ const TrackItem = ({ trackIndex, playlistTrack }: TrackItemProps) => {
     else {
       setIsCurrentSong(true)
     }
-  }, [song])
+  }, [song, playlistTrack])
 
 
   return (
@@ -72,6 +72,7 @@ const TrackItem = ({ trackIndex, playlistTrack }: TrackItemProps) => {
   )
 
 }
+
 
 
 const Home: NextPage<Props> = (props) => {
