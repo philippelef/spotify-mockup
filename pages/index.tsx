@@ -1,10 +1,15 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { usePlay } from "../context/PlayContext"
+import { useRouter } from 'next/router';
+import { useFav, writeFavorites } from '../context/FavContext';
+import { fetchFavorites } from '../context/FavContext';
+import { isArrayBufferView } from 'util/types';
+import Favorites from './favorites';
+
 
 export type Track = {
   name: string;
@@ -18,19 +23,27 @@ type PlaylistTrack = {
 }
 
 interface TrackItemProps {
-  trackIndex: number;
   playlistTrack: PlaylistTrack;
 }
 
 interface Props {
   url: string;
   tracks: Array<PlaylistTrack>;
+  favorites: { favList: string[] }
 }
 
-const TrackItem = ({ trackIndex, playlistTrack }: TrackItemProps) => {
-  const { song, setSong, play, setPlay, setPlayRequest } = usePlay()
-
+const TrackItem = ({ playlistTrack }: TrackItemProps) => {
+  const { song, setSong, play, setPlay } = usePlay()
+  const { addFav, removeFav, isFav } = useFav()
   const [isCurrentSong, setIsCurrentSong] = useState<boolean>(false)
+
+  const [liked, setLiked] = useState<boolean>(false)
+
+  useEffect(() => {
+    console.log("Pipi Raffraichi")
+    setLiked(isFav(playlistTrack.track.id))
+  })
+
 
   useEffect(() => {
     if (song !== playlistTrack.track) {
@@ -41,19 +54,31 @@ const TrackItem = ({ trackIndex, playlistTrack }: TrackItemProps) => {
     }
   }, [song, playlistTrack])
 
+  const PlayBehaviour = () => {
+    if (isCurrentSong) {
+      setPlay(!play)
+    }
+    else {
+      setSong(playlistTrack.track, true)
+    }
+  }
+
+  const LikeBehaviour = () => {
+    if (liked) {
+      removeFav(playlistTrack.track.id)
+      setLiked(false)
+    }
+    else {
+      addFav(playlistTrack.track.id)
+      setLiked(true)
+    }
+  }
+
 
   return (
     <div className={`${styles.trackItemWrapper} ${isCurrentSong ? styles.trackItemWrapperCurrent : ''}`}>
       {playlistTrack.track.preview_url != null &&
-        <button onClick={() => {
-          if (isCurrentSong) {
-            setPlay(!play)
-          }
-          else {
-            setSong(playlistTrack.track, true)
-          }
-        }
-        }>
+        <button onClick={() => PlayBehaviour()}>
           <a>
             {isCurrentSong && play ? 'pause' : 'play'}
           </a>
@@ -62,13 +87,15 @@ const TrackItem = ({ trackIndex, playlistTrack }: TrackItemProps) => {
       {
         playlistTrack.track.preview_url == null &&
         <a>No Play !</a>
-
       }
 
       <div>
         {playlistTrack.track.name} - {playlistTrack.added_at}
       </div>
-    </div>
+      <button onClick={() => LikeBehaviour()}>
+        {liked ? 'Unlike' : 'Like'}
+      </button>
+    </div >
   )
 
 }
@@ -76,14 +103,19 @@ const TrackItem = ({ trackIndex, playlistTrack }: TrackItemProps) => {
 
 
 const Home: NextPage<Props> = (props) => {
-  const { setSong } = usePlay();
+  const router = useRouter()
 
+  const { setFav, isFav } = useFav()
   useEffect(() => {
-    setSong(props.tracks[0].track)
+    writeFavorites(props.favorites)
+    setFav(props.favorites)
   }, [])
 
   return (
     <div>
+      <a onClick={() => router.push('/favorites')}>
+        -{'>'}Favorites
+      </a>
       <div>
         <Image
           src={props.url}
@@ -98,16 +130,6 @@ const Home: NextPage<Props> = (props) => {
         return (
           <TrackItem
             key={playlistTrack.track.id}
-            trackIndex={index}
-            playlistTrack={playlistTrack} />
-        )
-      }
-      )}
-      {props.tracks.map((playlistTrack, index) => {
-        return (
-          <TrackItem
-            key={playlistTrack.track.id}
-            trackIndex={index}
             playlistTrack={playlistTrack} />
         )
       }
@@ -116,7 +138,7 @@ const Home: NextPage<Props> = (props) => {
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: any) {
   const client = new ApolloClient({
     uri: 'https://spotify-graphql.shotgun.live/api',
     cache: new InMemoryCache()
@@ -143,10 +165,13 @@ export async function getServerSideProps() {
       `
   })
 
+  var favorites = fetchFavorites(context)
+
   return {
     props: {
       url: data.playlist.images[0].url,
       tracks: data.playlist.tracks,
+      favorites: favorites
     }
   }
 }
