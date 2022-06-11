@@ -8,7 +8,7 @@ const initialSong: Track = {
 }
 
 
-const initialVolume: number = 0.5
+const initialVolume: number = 0.1
 const initialMuted = initialVolume == 0 ? true : false
 
 type playContextType = {
@@ -95,6 +95,16 @@ export function PlayProvider({ children }: Props) {
 
     const initQueue = (newQueue: Track[]) => {
         setQueue(newQueue)
+        // If the player is initialized with a song, we need to recalculate
+        // its index for the best Skip / Previous behaviour. 
+        if (song.id != '') {
+            var index: number = newQueue.findIndex(elt => elt.id === song.id)
+            if (index === -1) {
+                index = 0
+            }
+            setQIndex(index)
+        }
+
     }
 
     const refPlayer = useRef<any>()
@@ -145,9 +155,8 @@ export function PlayProvider({ children }: Props) {
     return (
         <PlayContext.Provider value={value}>
             <audio
-                // onCanPlay={() => console.log("Can Play")}
                 ref={refPlayer}
-                onEnded={() => setPlay(false)}
+                onEnded={() => skipSong()}
             >
                 <source
                     src={song.preview_url}

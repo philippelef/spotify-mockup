@@ -20,6 +20,7 @@ const Favorites: NextPage<Props> = (props) => {
         setFav(props.favorites)
     }, [])
 
+
     return (
         <div>
             <a onClick={() => router.push('/')}>

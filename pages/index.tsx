@@ -22,6 +22,10 @@ const Home: NextPage<Props> = (props) => {
     setFav(props.favorites)
   }, [])
 
+  // useEffect(() => {
+
+  // }, [])
+
   return (
     <div>
       <a onClick={() => router.push('/favorites')}>

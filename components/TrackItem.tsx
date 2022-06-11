@@ -18,14 +18,14 @@ const TrackItem = ({ track }: TrackItemProps) => {
     }, [fav, setLiked, isFav, track])
 
     useEffect(() => {
-        setIsCurrentSong(song === track)
+        setIsCurrentSong(song.id == track.id)
     }, [track, song])
 
-    const PlayButtonBehaviour = () => {
+    const PlayButtonBehavior = () => {
         isCurrentSong ? setPlay(!play) : setSong(track, true)
     }
 
-    const LikeBehaviour = () => {
+    const LikeBehavior = () => {
         liked ? removeFav(track) : addFav(track)
         setLiked(!liked)
     }
@@ -34,7 +34,7 @@ const TrackItem = ({ track }: TrackItemProps) => {
     return (
         <div className={`${styles.trackItemWrapper} ${isCurrentSong ? styles.trackItemWrapperCurrent : ''}`}>
             {track.preview_url != null &&
-                <button onClick={() => PlayButtonBehaviour()}>
+                <button onClick={() => PlayButtonBehavior()}>
                     <a>
                         {isCurrentSong && play ? 'pause' : 'play'}
                     </a>
@@ -48,7 +48,7 @@ const TrackItem = ({ track }: TrackItemProps) => {
             <div>
                 {track.name}
             </div>
-            <button onClick={() => LikeBehaviour()}>
+            <button onClick={() => LikeBehavior()}>
                 {liked ? 'Unlike' : 'Like'}
             </button>
         </div >
