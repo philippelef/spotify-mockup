@@ -2,7 +2,6 @@
     .trackItemWrapper{
         grid-template-areas: "index info album duration" !important;
         grid-template-columns: 16px 4fr 2fr minmax(120px,1fr) !important;
-        color: #5e3c3c
     }
 
     .dateAdded {
@@ -10,40 +9,66 @@
     }
 }
 
+.trackUnavailable {
+    color: rgb(180, 180, 180);
+    background-color: rgb(246, 237, 237);;
+}
+
+.trackHover {
+    background-color: #f8f8f8;
+}
+
 .trackItemWrapper {
-    width: 100vw;
     height: 56px;
-    padding: 0.2em 2em;
     display: grid;
     grid-gap: 16px;
     grid-template-areas: "index info album date duration";
     grid-template-columns: 16px 6fr  4fr 3fr minmax(120px,1fr);
     font-size: 0.8rem;
     font-weight: 300;
+    align-items: center;
+    padding:0 1em;
+}
+
+.index {
+    grid-column: index;
+    justify-self: start;
 }
   
 .trackItemWrapperCurrent {
-    background-color: #ffd9d9;
+    background-color: #effdef;
 }
 
 .trackNameArtistImage {
+    height: 56px;
     justify-self: start;
     display: flex;
     grid-column: info;
     min-width: 0;
     width: 100%;
+    /* height: 100%; */
 }
 
 .imageWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    background-color: red;
+    /* justify-self: center; */
+    margin: auto 1em auto 0.4em;
+    height: 40px;
+    width: 40px;
     padding-right: 0.8em;
+
+
+    /* overflow: hidden; */
+    /* border-radius: 30%; */
+}
+
+.artwork {
+    
 }
 
 .trackInfo {
-    box-sizing: content-box;
     width: 100%;
+    height: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -88,7 +113,17 @@
     justify-self: end;
 }
 
+.likeButton {
+    height: 16px;
+    margin-right: 1em;
+}
+
 .duration {
     /* min-width: 0; */
     vertical-align: middle;
+}
+
+.indexNumber {
+    width: 16px;
+    text-align: center;
 }

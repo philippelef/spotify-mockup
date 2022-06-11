@@ -6,8 +6,6 @@
 min-height: calc(100vh - var(--footer-height));
 height: 10px;
 overflow: scroll;
-scroll-behavior: auto;
-
 }
   
   

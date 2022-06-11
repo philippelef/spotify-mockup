@@ -34,6 +34,7 @@ export type PlaylistTrack = {
 }
 
 export interface TrackItemProps {
+    index: number,
     track: Track;
 }
 

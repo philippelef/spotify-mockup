@@ -56,6 +56,11 @@ type Props = {
 };
 
 
+function isAvailable(track: Track): boolean {
+    return track.preview_url != null;
+}
+
+
 export function PlayProvider({ children }: Props) {
     const [play, handlePlay] = useState<boolean>(false);
     const setPlay = (newState: boolean) => {
@@ -90,14 +95,25 @@ export function PlayProvider({ children }: Props) {
 
     const skipSong = () => {
         // Modulo is essential for going back to the other playlist end.
-        const newIndex: number = (qIndex + 1 + queue.length) % queue.length
+        var newIndex: number = newIndex = (qIndex + 1 + queue.length) % queue.length
+        // This is in case the next song is unavailable.
+        while (!isAvailable(queue[newIndex])) {
+            newIndex = (newIndex + 1 + queue.length) % queue.length
+        }
+
         setSong(queue[newIndex], true, newIndex)
     }
 
     const previousSong = () => {
         // Modulo is essential for going back to the other playlist end.
-        const newIndex: number = (qIndex - 1 + queue.length) % queue.length
+        var newIndex: number = newIndex = (qIndex - 1 + queue.length) % queue.length
+        // This is in case the previous song is unavailable.
+        while (!isAvailable(queue[newIndex])) {
+            newIndex = (newIndex - 1 + queue.length) % queue.length
+        }
+
         setSong(queue[newIndex], true, newIndex)
+
     }
 
     const initQueue = (newQueue: Track[]) => {

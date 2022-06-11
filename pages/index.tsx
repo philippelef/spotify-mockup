@@ -24,7 +24,7 @@ const Home: NextPage<Props> = (props) => {
 
 
   return (
-    <div>
+    <div className={styles.HomePage}>
       <a onClick={() => router.push('/favorites')}>
         -{'>'}Favorites {fav.length}
       </a>
@@ -36,15 +36,18 @@ const Home: NextPage<Props> = (props) => {
           width="100px"
         />
       </div>
-      {props.playlist.tracks.map((playlistTrack) => {
-        return (
-          <TrackItem
-            key={playlistTrack.track.id}
-            track={playlistTrack.track} />
+      {
+        props.playlist.tracks.map((playlistTrack, i) => {
+          return (
+            <TrackItem
+              key={playlistTrack.track.id}
+              index={i + 1}
+              track={playlistTrack.track} />
+          )
+        }
         )
       }
-      )}
-    </div>
+    </div >
   )
 }
 

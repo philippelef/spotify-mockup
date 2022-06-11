@@ -5,11 +5,39 @@ import { usePlay } from "../context/PlayContext"
 import { TrackItemProps } from "../helpers/types"
 import Image from 'next/image'
 import styles from "../styles/TrackItem.module.css"
+import PlayButton from "./Buttons/PlayButton"
+import PauseButton from "./Buttons/PauseButton"
+import LikeButton from "./Buttons/LikeButton"
+
+const Index = ({ unavailable, isCurrentSong, play, hover, index }: any) => {
+    if (unavailable) {
+        return (<div />)
+    }
+
+    if (!hover) {
+        return (
+            <div className={styles.indexNumber}>
+                {index}
+            </div>
+        )
+    }
+
+    if (isCurrentSong && play) {
+        return (<PauseButton />)
+    }
+    else {
+        return (<PlayButton />)
+    }
+}
 
 
-const TrackItem = ({ track }: TrackItemProps) => {
+const TrackItem = ({ track, index }: TrackItemProps) => {
     const { song, setSong, play, setPlay } = usePlay()
     const { addFav, removeFav, fav, isFav } = useFav()
+
+    const [hover, setHover] = useState<boolean>(false)
+
+    const unavailable: boolean = track.preview_url == null
 
     const [isCurrentSong, setIsCurrentSong] = useState<boolean>(song === track)
     const [liked, setLiked] = useState<boolean>(false)
@@ -23,7 +51,9 @@ const TrackItem = ({ track }: TrackItemProps) => {
     }, [track, song])
 
     const PlayButtonBehavior = () => {
-        isCurrentSong ? setPlay(!play) : setSong(track, true)
+        if (!unavailable) {
+            isCurrentSong ? setPlay(!play) : setSong(track, true)
+        }
     }
 
     const LikeBehavior = () => {
@@ -34,18 +64,18 @@ const TrackItem = ({ track }: TrackItemProps) => {
 
 
     return (
-        <div className={`${styles.trackItemWrapper} ${isCurrentSong ? styles.trackItemWrapperCurrent : ''}`}>
-            {track.preview_url != null &&
-                <button onClick={() => PlayButtonBehavior()}>
-                    <a>
-                        {isCurrentSong && play ? 'pause' : 'play'}
-                    </a>
-                </button>
-            }
-            {
-                track.preview_url == null &&
-                <a>No Play !</a>
-            }
+        <div className={`${styles.trackItemWrapper} 
+        ${isCurrentSong ? styles.trackItemWrapperCurrent : ''} 
+        ${unavailable && styles.trackUnavailable}
+        ${hover && styles.trackHover}`}
+            onDoubleClick={() => PlayButtonBehavior()}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+        >
+            <div className={styles.index}
+                onClick={() => PlayButtonBehavior()}>
+                <Index unavailable={unavailable} isCurrentSong={isCurrentSong} play={play} hover={hover} index={index} />
+            </div>
 
             <div className={styles.trackNameArtistImage}>
                 <div className={styles.imageWrapper}>
@@ -78,9 +108,10 @@ const TrackItem = ({ track }: TrackItemProps) => {
             </div>
 
             <div className={styles.likeDuration}>
-                <button onClick={() => LikeBehavior()}>
-                    {liked ? 'Unlike' : 'Like'}
-                </button>
+                <div className={styles.likeButton}
+                    onClick={() => LikeBehavior()}>
+                    <LikeButton color={liked ? 'green' : 'grey'} />
+                </div>
 
                 <div className={styles.duration}>
                     3:14
