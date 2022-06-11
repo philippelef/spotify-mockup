@@ -6,7 +6,7 @@ import TrackItem from "../components/TrackItem"
 import { fetchFavorites, useFav } from "../context/FavContext"
 import { usePlay } from "../context/PlayContext"
 import { fetchPlaylist } from "../helpers/fetchPlaylist"
-import { PlaylistTrack, Props } from "../helpers/types"
+import { PlaylistData, PlaylistTrack, Props } from "../helpers/types"
 
 
 const Favorites: NextPage<Props> = (props) => {
@@ -43,15 +43,12 @@ const Favorites: NextPage<Props> = (props) => {
 
 export async function getServerSideProps(context: any) {
 
-    var data = await fetchPlaylist()
+    var playlistData: PlaylistData = await fetchPlaylist()
     var favorites = fetchFavorites(context)
-
-    var tracks: PlaylistTrack[] = data.playlist.tracks
 
     return {
         props: {
-            url: data.playlist.images[0].url,
-            tracks: tracks,
+            playlistData: playlistData,
             favorites: favorites
 
         }

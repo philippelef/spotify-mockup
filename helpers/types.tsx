@@ -1,7 +1,31 @@
+export type Artist = {
+    id: string
+    name: string
+    images: Image[]
+}
+
+export type Album = {
+    id: string,
+    name: string
+    images: Image[]
+}
+
 export type Track = {
+    name: string
+    id: string
+    preview_url: string
+    artists: Artist[]
+    album: Album
+}
+
+export type Image = {
+    url: string;
+}
+
+export type PlaylistData = {
     name: string;
-    id: string;
-    preview_url: string;
+    images: Image[];
+    tracks: PlaylistTrack[];
 }
 
 export type PlaylistTrack = {
@@ -14,7 +38,6 @@ export interface TrackItemProps {
 }
 
 export interface Props {
-    url: string;
-    tracks: Array<PlaylistTrack>;
+    playlist: PlaylistData,
     favorites: { favList: Track[] }
 }

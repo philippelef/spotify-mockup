@@ -1,11 +1,94 @@
+@media screen and (max-width: 700px) {
+    .trackItemWrapper{
+        grid-template-areas: "index info album duration" !important;
+        grid-template-columns: 16px 4fr 2fr minmax(120px,1fr) !important;
+        color: #5e3c3c
+    }
+
+    .dateAdded {
+        display: none;
+    }
+}
+
 .trackItemWrapper {
-    width: 100%;
-    display: flex;
+    width: 100vw;
+    height: 56px;
     padding: 0.2em 2em;
-    flex-direction: row;
-    justify-content: space-between;
-  }
+    display: grid;
+    grid-gap: 16px;
+    grid-template-areas: "index info album date duration";
+    grid-template-columns: 16px 6fr  4fr 3fr minmax(120px,1fr);
+    font-size: 0.8rem;
+    font-weight: 300;
+}
   
-  .trackItemWrapperCurrent {
+.trackItemWrapperCurrent {
     background-color: #ffd9d9;
-  }
+}
+
+.trackNameArtistImage {
+    justify-self: start;
+    display: flex;
+    grid-column: info;
+    min-width: 0;
+    width: 100%;
+}
+
+.imageWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 0.8em;
+}
+
+.trackInfo {
+    box-sizing: content-box;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: flex-start;
+}
+
+.trackTitle {
+    text-overflow: ellipsis;
+    overflow:hidden;
+    white-space: nowrap;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.trackArtist {
+    word-break: break-all;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.trackAlbum {
+    /* vertical-align: middle; */
+    grid-column: album;
+    justify-self: start;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow:hidden;
+    white-space: nowrap;
+}
+
+.dateAdded {
+    vertical-align: middle;
+}
+
+.likeDuration {
+    justify-self: start;
+    display: flex;
+    min-width: 0;
+    grid-column: duration;
+    justify-self: end;
+}
+
+.duration {
+    /* min-width: 0; */
+    vertical-align: middle;
+}

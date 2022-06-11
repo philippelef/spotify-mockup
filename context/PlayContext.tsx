@@ -4,7 +4,13 @@ import { Track } from '../helpers/types';
 const initialSong: Track = {
     name: '',
     id: '',
-    preview_url: ''
+    preview_url: '',
+    artists: [],
+    album: {
+        id: '',
+        name: '',
+        images: [],
+    }
 }
 
 
@@ -91,7 +97,6 @@ export function PlayProvider({ children }: Props) {
     const previousSong = () => {
         // Modulo is essential for going back to the other playlist end.
         const newIndex: number = (qIndex - 1 + queue.length) % queue.length
-        console.log(newIndex)
         setSong(queue[newIndex], true, newIndex)
     }
 

@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useFav } from '../context/FavContext';
 import { fetchFavorites } from '../context/FavContext';
-import { Props } from '../helpers/types';
+import { PlaylistData, Props } from '../helpers/types';
 import TrackItem from '../components/TrackItem';
 import { fetchPlaylist } from '../helpers/fetchPlaylist';
 import { usePlay } from '../context/PlayContext';
@@ -18,7 +18,7 @@ const Home: NextPage<Props> = (props) => {
   const { setFav, fav } = useFav()
   const { initQueue } = usePlay()
   useEffect(() => {
-    initQueue(props.tracks.map((e) => e.track))
+    initQueue(props.playlist.tracks.map((e) => e.track))
     setFav(props.favorites)
   }, [])
 
@@ -30,13 +30,13 @@ const Home: NextPage<Props> = (props) => {
       </a>
       <div>
         <Image
-          src={props.url}
+          src={props.playlist.images[0].url}
           alt='Playlist Image'
           height="100px"
           width="100px"
         />
       </div>
-      {props.tracks.map((playlistTrack) => {
+      {props.playlist.tracks.map((playlistTrack) => {
         return (
           <TrackItem
             key={playlistTrack.track.id}
@@ -50,13 +50,12 @@ const Home: NextPage<Props> = (props) => {
 
 export async function getServerSideProps(context: any) {
 
-  var data = await fetchPlaylist()
+  var playlistData: PlaylistData = await fetchPlaylist()
   var favorites = fetchFavorites(context)
 
   return {
     props: {
-      url: data.playlist.images[0].url,
-      tracks: data.playlist.tracks,
+      playlist: playlistData,
       favorites: favorites
     }
   }
