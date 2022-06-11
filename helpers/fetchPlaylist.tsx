@@ -1,13 +1,13 @@
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 
 export async function fetchPlaylist() {
-    const client = new ApolloClient({
-        uri: 'https://spotify-graphql.shotgun.live/api',
-        cache: new InMemoryCache()
-    });
+  const client = new ApolloClient({
+    uri: 'https://spotify-graphql.shotgun.live/api',
+    cache: new InMemoryCache()
+  });
 
-    const { data } = await client.query({
-        query: gql`
+  const { data } = await client.query({
+    query: gql`
           query getUrl {
             playlist {
               name
@@ -25,8 +25,7 @@ export async function fetchPlaylist() {
             }
           }
           `
-    })
+  })
 
-    return data
+  return data
 }
-

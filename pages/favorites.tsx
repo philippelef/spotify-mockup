@@ -5,7 +5,7 @@ import { useEffect } from "react"
 import TrackItem from "../components/TrackItem"
 import { fetchFavorites, useFav } from "../context/FavContext"
 import { usePlay } from "../context/PlayContext"
-import { fetchPlaylist } from "../helpers/playlistFetch"
+import { fetchPlaylist } from "../helpers/fetchPlaylist"
 import { PlaylistTrack, Props } from "../helpers/types"
 
 

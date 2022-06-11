@@ -7,7 +7,7 @@ import { useFav } from '../context/FavContext';
 import { fetchFavorites } from '../context/FavContext';
 import { Props } from '../helpers/types';
 import TrackItem from '../components/TrackItem';
-import { fetchPlaylist } from '../helpers/playlistFetch';
+import { fetchPlaylist } from '../helpers/fetchPlaylist';
 import { usePlay } from '../context/PlayContext';
 
 
@@ -22,9 +22,6 @@ const Home: NextPage<Props> = (props) => {
     setFav(props.favorites)
   }, [])
 
-  // useEffect(() => {
-
-  // }, [])
 
   return (
     <div>
@@ -40,7 +37,6 @@ const Home: NextPage<Props> = (props) => {
         />
       </div>
       {props.tracks.map((playlistTrack) => {
-        // const trackId: string = playlistTrack.track.id
         return (
           <TrackItem
             key={playlistTrack.track.id}
