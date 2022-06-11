@@ -1,4 +1,6 @@
+import { useState } from "react"
 import { usePlay } from "../context/PlayContext"
+import { Track } from "../helpers/types"
 import styles from "../styles/PlayerFooter.module.css"
 
 const VolumeSlider = () => {
@@ -23,26 +25,33 @@ const VolumeSlider = () => {
 }
 
 const PlayButton = ({ play, setPlay }: any) => {
-    if (play) {
-        return (
-            <button onClick={
-                () => {
-                    setPlay(false)
-                }}>
-                Pause
-            </button >
-        )
-    }
-    else {
-        return (
-            <button onClick={
-                () => {
-                    setPlay(true)
-                }}>
-                Play
-            </button>
-        )
-    }
+    return (
+        <button onClick={() => setPlay(!play)}>
+            {play ? 'Pause' : 'Play'}
+        </button >
+    )
+}
+
+const PreviousButton = () => {
+    const { previousSong } = usePlay()
+
+    return (
+        <button onClick={() => previousSong()}>
+            Previous
+        </button>
+    )
+
+}
+
+const SkipButton = () => {
+    const { skipSong } = usePlay()
+
+    return (
+        <button onClick={() => skipSong()}>
+            Skip
+        </button>
+    )
+
 }
 
 
@@ -51,10 +60,15 @@ const PlayerFooter = () => {
 
     return (
         <div className={styles.PlayerFooterWrapper}>
-
-            <PlayButton play={play} setPlay={setPlay} />
-            {song.name}
-            <VolumeSlider />
+            <div className={styles.ControlsWrapper}>
+                <PreviousButton />
+                <PlayButton play={play} setPlay={setPlay} />
+                <SkipButton />
+                <VolumeSlider />
+            </div>
+            <div className={styles.SongInfoWrapper}>
+                {song.name}
+            </div>
         </div >
     )
 }

@@ -14,27 +14,29 @@ const initialMuted = initialVolume == 0 ? true : false
 type playContextType = {
     play: boolean;
     setPlay: (newState: boolean) => void;
-    playRequest: boolean;
-    setPlayRequest: (newState: boolean) => void;
     volume: number;
     setVolume: (newVolume: number) => void;
     muted: boolean,
     setMuted: (newState: boolean) => void;
     song: Track;
-    setSong: (newSong: Track, playInstant?: boolean) => void;
+    setSong: (newSong: Track, playInstant?: boolean, index?: number) => void;
+    skipSong: () => void;
+    previousSong: () => void;
+    initQueue: (newQueue: Track[]) => void;
 };
 
 const playContextDefaultValues: playContextType = {
     play: false,
     setPlay: () => { },
-    playRequest: false,
-    setPlayRequest: () => { },
     volume: initialVolume,
     setVolume: () => { },
     muted: initialMuted,
     setMuted: () => { },
     song: initialSong,
     setSong: () => { },
+    skipSong: () => { },
+    previousSong: () => { },
+    initQueue: () => { },
 };
 
 const PlayContext = createContext<playContextType>(playContextDefaultValues);
@@ -64,28 +66,35 @@ export function PlayProvider({ children }: Props) {
         handleMuted(newState);
     }
 
-    const [playRequest, handlePlayRequest] = useState<boolean>(false)
-
-    const setPlayRequest = (newState: boolean) => {
-        handlePlayRequest(newState)
-    }
-
+    const [queue, setQueue] = useState<Track[]>([])
+    const [qIndex, setQIndex] = useState<number>(0)
 
     const [song, handleSong] = useState<Track>(initialSong);
-    const setSong = (newSong: Track, playInstant: boolean = false) => {
+    const setSong = (newSong: Track, playInstant: boolean = false, index?: number) => {
+        if (index == null) {
+            index = queue.findIndex(elt => elt.id === newSong.id)
+        }
+        setQIndex(index)
         handleSong(newSong);
         refPlayer.current.load()
-        if (playInstant) {
+        if (playInstant && newSong.preview_url != null) {
             playSong()
         }
     }
 
-    const value = {
-        play, setPlay,
-        playRequest, setPlayRequest,
-        volume, setVolume,
-        muted, setMuted,
-        song, setSong,
+    const skipSong = () => {
+        const newIndex: number = (qIndex + 1 + queue.length) % queue.length
+        setSong(queue[newIndex], true, newIndex)
+    }
+
+    const previousSong = () => {
+        const newIndex: number = (qIndex - 1 + queue.length) % queue.length
+        console.log(newIndex)
+        setSong(queue[newIndex], true, newIndex)
+    }
+
+    const initQueue = (newQueue: Track[]) => {
+        setQueue(newQueue)
     }
 
     const refPlayer = useRef<any>()
@@ -123,6 +132,15 @@ export function PlayProvider({ children }: Props) {
             refPlayer.current.muted = false;
         }
     }, [volume])
+
+
+    const value = {
+        play, setPlay,
+        volume, setVolume,
+        muted, setMuted,
+        song, setSong,
+        skipSong, previousSong, initQueue,
+    }
 
     return (
         <PlayContext.Provider value={value}>

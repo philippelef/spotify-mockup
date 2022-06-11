@@ -5,51 +5,36 @@ import { usePlay } from "../context/PlayContext"
 import { TrackItemProps } from "../helpers/types"
 import styles from "../styles/TrackItem.module.css"
 
-const TrackItem = ({ track }: any) => {
+
+const TrackItem = ({ track }: TrackItemProps) => {
     const { song, setSong, play, setPlay } = usePlay()
     const { addFav, removeFav, fav, isFav } = useFav()
-    const [isCurrentSong, setIsCurrentSong] = useState<boolean>(false)
 
+    const [isCurrentSong, setIsCurrentSong] = useState<boolean>(song === track)
     const [liked, setLiked] = useState<boolean>(false)
 
     useEffect(() => {
         setLiked(isFav(track))
-    }, [fav])
+    }, [fav, setLiked, isFav, track])
 
     useEffect(() => {
-        if (song !== track) {
-            setIsCurrentSong(false)
-        }
-        else {
-            setIsCurrentSong(true)
-        }
-    }, [song, track])
+        setIsCurrentSong(song === track)
+    }, [track, song])
 
-    const PlayBehaviour = () => {
-        if (isCurrentSong) {
-            setPlay(!play)
-        }
-        else {
-            setSong(track, true)
-        }
+    const PlayButtonBehaviour = () => {
+        isCurrentSong ? setPlay(!play) : setSong(track, true)
     }
 
     const LikeBehaviour = () => {
-        if (liked) {
-            removeFav(track)
-            setLiked(false)
-        }
-        else {
-            addFav(track)
-            setLiked(true)
-        }
+        liked ? removeFav(track) : addFav(track)
+        setLiked(!liked)
     }
 
 
     return (
         <div className={`${styles.trackItemWrapper} ${isCurrentSong ? styles.trackItemWrapperCurrent : ''}`}>
             {track.preview_url != null &&
-                <button onClick={() => PlayBehaviour()}>
+                <button onClick={() => PlayButtonBehaviour()}>
                     <a>
                         {isCurrentSong && play ? 'pause' : 'play'}
                     </a>

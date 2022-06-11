@@ -1,29 +1,31 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-import { useEffect, useState } from 'react';
-import { usePlay } from "../context/PlayContext"
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useFav, writeFavorites } from '../context/FavContext';
+import { useFav } from '../context/FavContext';
 import { fetchFavorites } from '../context/FavContext';
-import { Props, TrackItemProps } from '../helpers/types';
+import { Props } from '../helpers/types';
 import TrackItem from '../components/TrackItem';
+import { fetchPlaylist } from '../helpers/playlistFetch';
+import { usePlay } from '../context/PlayContext';
 
 
 const Home: NextPage<Props> = (props) => {
   const router = useRouter()
 
   // Writing the favs
-  const { setFav, isFav, fav } = useFav()
+  const { setFav, fav } = useFav()
+  const { initQueue } = usePlay()
   useEffect(() => {
+    initQueue(props.tracks.map((e) => e.track))
     setFav(props.favorites)
   }, [])
 
   return (
     <div>
       <a onClick={() => router.push('/favorites')}>
-        -{'>'}Favorites
+        -{'>'}Favorites {fav.length}
       </a>
       <div>
         <Image
@@ -37,7 +39,6 @@ const Home: NextPage<Props> = (props) => {
         // const trackId: string = playlistTrack.track.id
         return (
           <TrackItem
-            removeItem={() => console.log("index remove click")}
             key={playlistTrack.track.id}
             track={playlistTrack.track} />
         )
@@ -48,32 +49,8 @@ const Home: NextPage<Props> = (props) => {
 }
 
 export async function getServerSideProps(context: any) {
-  const client = new ApolloClient({
-    uri: 'https://spotify-graphql.shotgun.live/api',
-    cache: new InMemoryCache()
-  });
 
-  const { data } = await client.query({
-    query: gql`
-      query getUrl {
-        playlist {
-          name
-          images {
-            url
-          }
-          tracks {
-            added_at
-            track {
-              id
-              name
-              preview_url
-            }
-          }
-        }
-      }
-      `
-  })
-
+  var data = await fetchPlaylist()
   var favorites = fetchFavorites(context)
 
   return {

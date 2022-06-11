@@ -1,19 +1,22 @@
-import { ApolloClient, gql, InMemoryCache } from "@apollo/client"
+
 import { NextPage } from "next"
-import Link from "next/link"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import TrackItem from "../components/TrackItem"
 import { fetchFavorites, useFav } from "../context/FavContext"
-import { PlaylistTrack, Props, Track } from "../helpers/types"
+import { usePlay } from "../context/PlayContext"
+import { fetchPlaylist } from "../helpers/playlistFetch"
+import { PlaylistTrack, Props } from "../helpers/types"
 
 
 const Favorites: NextPage<Props> = (props) => {
     const router = useRouter()
 
     const { fav, setFav } = useFav()
+    const { initQueue } = usePlay()
 
     useEffect(() => {
+        initQueue(props.favorites.favList)
         setFav(props.favorites)
     }, [])
 
@@ -38,38 +41,11 @@ const Favorites: NextPage<Props> = (props) => {
 }
 
 export async function getServerSideProps(context: any) {
-    const client = new ApolloClient({
-        uri: 'https://spotify-graphql.shotgun.live/api',
-        cache: new InMemoryCache()
-    });
 
-    const { data } = await client.query({
-        query: gql`
-        query getUrl {
-          playlist {
-            name
-            images {
-              url
-            }
-            tracks {
-              added_at
-              track {
-                id
-                name
-                preview_url
-              }
-            }
-          }
-        }
-        `
-    })
-
+    var data = await fetchPlaylist()
     var favorites = fetchFavorites(context)
 
     var tracks: PlaylistTrack[] = data.playlist.tracks
-    // console.log("tracks: ", favorites.favList.indexOf(tracks[1].track) != -1)
-    // tracks = tracks.filter(e => favorites.favList.indexOf(e.track) != -1)
-
 
     return {
         props: {

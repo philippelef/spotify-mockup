@@ -9,3 +9,13 @@
     justify-content: space-around;
     align-items: center;
   }
+
+.ControlsWrapper {
+  width: 200px;
+  display: flex;
+}
+
+
+.SongInfoWrapper {
+  width: 200px;
+}
