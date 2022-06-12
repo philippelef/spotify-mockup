@@ -2,10 +2,25 @@
     margin: 0em 1em 0em 1em;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 500px) {
+    .trackItemWrapper{
+        grid-template-areas: "index info duration" !important;
+        grid-template-columns: 16px 10fr minmax(80px,1fr) !important;
+    }
+
+    .dateAdded {
+        display: none;
+    }
+
+    .trackAlbum {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 700px) and (min-width: 501px) {
     .trackItemWrapper{
         grid-template-areas: "index info album duration" !important;
-        grid-template-columns: 16px 4fr 2fr minmax(120px,1fr) !important;
+        grid-template-columns: 16px 4fr 2fr minmax(80px,1fr) !important;
     }
 
     .dateAdded {
@@ -43,7 +58,7 @@
     display: grid;
     grid-gap: 16px;
     grid-template-areas: "index info album date duration";
-    grid-template-columns: 16px 6fr  4fr 3fr minmax(120px,1fr);
+    grid-template-columns: 16px 6fr  4fr 2fr minmax(80px,0.5fr);
     align-items: center;
     padding-inline: 1em;
     border-radius: 0.3em;
@@ -122,6 +137,8 @@
 .likeDuration {
     justify-self: start;
     display: flex;
+    justify-content: space-between;
+    width: 100%;
     min-width: 0;
     grid-column: duration;
     justify-self: end;

@@ -4,6 +4,7 @@ import { NextPage } from "next"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { isArrayBufferView } from "util/types"
+import PlaylistHeader from "../components/PlaylistHeader"
 import TrackItem from "../components/TrackItem"
 import { TrackList } from '../components/TrackList';
 import { fetchFavorites, useFav } from "../context/FavContext"
@@ -58,10 +59,7 @@ const Favorites: NextPage<Props> = (props) => {
             <a onClick={() => router.push('/')}>
                 -{'>'}Playlist
             </a>
-            <h1>
-                This is where your favorites are displayed!
-            </h1>
-
+            <PlaylistHeader playlist={props.playlist} />
             <TrackList>
                 {
                     props.playlist.tracks.map((playlistTrack, i) => {
@@ -85,7 +83,7 @@ export async function getServerSideProps(context: any) {
     var favorites = fetchFavorites(context, playlistData)
 
     var likedTracks: PlaylistTrack[] = playlistData.tracks.filter((e) => favorites[e.track.id] == true)
-    var newPlaylist: PlaylistData = { name: playlistData.name, images: playlistData.images, tracks: likedTracks }
+    var newPlaylist: PlaylistData = { name: 'Liked Songs', images: [{ url: '/likedSongs.png' }], tracks: likedTracks }
 
     return {
         props: {
