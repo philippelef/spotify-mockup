@@ -9,6 +9,8 @@ import { PlaylistData, Props } from '../helpers/types';
 import TrackItem from '../components/TrackItem';
 import { fetchPlaylist } from '../helpers/fetchPlaylist';
 import { usePlay } from '../context/PlayContext';
+import Favorites from './favorites';
+import { TrackList } from '../components/TrackList';
 
 const FavNumberIndicator = () => {
   const router = useRouter()
@@ -23,15 +25,24 @@ const FavNumberIndicator = () => {
   )
 }
 
+const FirstRow = () => {
+  return (
+    <div>
+      album
+    </div>
+  )
+}
+
 
 const Home: NextPage<Props> = (props) => {
-  const { setFav, fav, favNumber } = useFav()
   const { initQueue } = usePlay()
+  const { setFav } = useFav()
 
   useEffect(() => {
     initQueue(props.playlist.tracks.map((e) => e.track))
     setFav(props.favorites)
   }, [])
+
 
   return (
     <div className={styles.HomePage}>
@@ -44,24 +55,28 @@ const Home: NextPage<Props> = (props) => {
           width="100px"
         />
       </div>
-      {
-        props.playlist.tracks.map((playlistTrack, i) => {
-          return (
-            <TrackItem
-              key={playlistTrack.track.id}
-              track={playlistTrack.track}
-              index={i}
-            />
+      <TrackList>
+        {
+          props.playlist.tracks.map((playlistTrack, i) => {
+            return (
+              <TrackItem
+                key={playlistTrack.track.id}
+                track={playlistTrack.track}
+                added_at={playlistTrack.added_at}
+                favValue={props.favorites[playlistTrack.track.id]}
+                index={i}
+              />
+            )
+          }
           )
         }
-        )
-      }
+      </TrackList>
     </div >
   )
 }
 
 export async function getServerSideProps(context: any) {
-  var playlistData: PlaylistData = await fetchPlaylist(context)
+  var playlistData: PlaylistData = await fetchPlaylist()
   var favorites = fetchFavorites(context, playlistData)
 
   return {

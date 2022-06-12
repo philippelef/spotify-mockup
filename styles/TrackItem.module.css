@@ -1,3 +1,7 @@
+.contentSpacing {
+    margin: 0em 1em 0em 1em;
+}
+
 @media screen and (max-width: 700px) {
     .trackItemWrapper{
         grid-template-areas: "index info album duration" !important;
@@ -27,27 +31,27 @@
 
 
 .trackUnavailable {
-    color: rgb(180, 180, 180);
-    background-color: rgb(246, 237, 237);;
+    opacity: 30%;
+    /* background-color: rgba(246, 237, 237, 0.1); */
 }
 
 .trackHover {
-    background-color: #f8f8f8;
+    background-color: #f8f8f832;
 }
 
 .trackItemWrapper {
-    height: 56px;
     display: grid;
     grid-gap: 16px;
     grid-template-areas: "index info album date duration";
     grid-template-columns: 16px 6fr  4fr 3fr minmax(120px,1fr);
-    font-size: 0.8rem;
-    font-weight: 300;
     align-items: center;
-    padding:0 1em;
+    padding-inline: 1em;
+    border-radius: 0.3em;
 }
 
 .index {
+    font-size: 1.1em;
+    /* font-weight: 400; */
     grid-column: index;
     justify-self: start;
 }
@@ -63,25 +67,15 @@
     grid-column: info;
     min-width: 0;
     width: 100%;
+    margin-right: 16px;
     /* height: 100%; */
 }
 
 .imageWrapper {
-    /* border-radius: 10px; */
-    /* overflow: hidden; */
-    /* justify-self: center; */
-    margin: auto 1em auto 0.4em;
+    margin: auto 1em auto 0em;
     height: 40px;
     width: 40px;
     padding-right: 0.8em;
-
-
-    /* overflow: hidden; */
-    /* border-radius: 30%; */
-}
-
-.artwork {
-    
 }
 
 .trackInfo {
@@ -144,4 +138,28 @@
 .indexNumber {
     width: 16px;
     text-align: center;
+}
+
+.hashtag {
+    text-align: center;
+}
+
+.clockWrapper {
+    height: 16px;
+    justify-self: end;
+}
+
+.columnNameStyling {
+    font-weight: 300;
+    font-size: 0.8rem;
+    height: 30px;
+    margin-bottom: 1em;
+
+    border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+.trackItemStyling {
+    font-size: 0.8rem;
+    font-weight: 300;
+    height: 56px;
 }

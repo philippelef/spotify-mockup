@@ -17,6 +17,7 @@ export type Track = {
     artists: Artist[]
     album: Album
     like: boolean
+    duration: number
 }
 
 export type Image = {

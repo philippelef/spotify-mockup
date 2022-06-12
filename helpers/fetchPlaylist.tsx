@@ -2,24 +2,13 @@ import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 import { PlaylistData } from "./types";
 import nookies from 'nookies'
 
-function assignLikes(playlist: PlaylistData, context: any): PlaylistData {
-  // playlist.tracks.map()
-  var favorites = JSON.parse(nookies.get(context).favorites)
-  // playlist.tracks.map((e) => e.track.like = true)
-  playlist.tracks[0].track.like = true
-  console.log(playlist.tracks)
-  // return favorites
-  return playlist
-}
 
-
-export async function fetchPlaylist(context: any): Promise<PlaylistData> {
+export async function fetchPlaylist(): Promise<PlaylistData> {
   try {
     const client = new ApolloClient({
       uri: 'https://spotify-graphql.shotgun.live/api',
       cache: new InMemoryCache()
     });
-
 
     const { data } = await client.query({
       query: gql`
@@ -33,6 +22,7 @@ export async function fetchPlaylist(context: any): Promise<PlaylistData> {
                     id
                     name
                     preview_url
+                    duration_ms
                     artists {
                       id
                       name
@@ -53,10 +43,6 @@ export async function fetchPlaylist(context: any): Promise<PlaylistData> {
             }
             `
     })
-
-    var favList: { [id: string]: boolean } = {}
-    favList['pipi'] = true;
-    console.log(favList["chien"])
 
     return data.playlist
   }
