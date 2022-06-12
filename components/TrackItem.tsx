@@ -31,7 +31,7 @@ const Index = ({ unavailable, isCurrentSong, play, hover, index }: any) => {
 }
 
 
-const TrackItem = ({ track, index }: TrackItemProps) => {
+const TrackItem = ({ track, index }: any) => {
     const { song, setSong, play, setPlay } = usePlay()
     const { addFav, removeFav, fav, isFav } = useFav()
 
@@ -43,8 +43,9 @@ const TrackItem = ({ track, index }: TrackItemProps) => {
     const [liked, setLiked] = useState<boolean>(false)
 
     useEffect(() => {
+        console.log('isFav?', isFav(track))
         setLiked(isFav(track))
-    }, [fav, setLiked, isFav, track])
+    }, [fav[track.id]])
 
     useEffect(() => {
         setIsCurrentSong(song.id == track.id)

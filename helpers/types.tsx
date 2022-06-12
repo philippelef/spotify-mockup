@@ -16,6 +16,7 @@ export type Track = {
     preview_url: string
     artists: Artist[]
     album: Album
+    like: boolean
 }
 
 export type Image = {
@@ -38,7 +39,11 @@ export interface TrackItemProps {
     track: Track;
 }
 
+export type Favorites = {
+    [id: string]: boolean
+}
+
 export interface Props {
     playlist: PlaylistData,
-    favorites: { favList: Track[] }
+    favorites: Favorites,
 }

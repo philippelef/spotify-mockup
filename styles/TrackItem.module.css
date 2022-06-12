@@ -9,6 +9,23 @@
     }
 }
 
+.RemoveAnim {
+    animation-name: removeanim;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes removeanim {
+    0% {
+        opacity: 100%;
+    }
+
+    100% {
+        opacity: 0%;
+    }
+}
+
+
 .trackUnavailable {
     color: rgb(180, 180, 180);
     background-color: rgb(246, 237, 237);;
@@ -50,7 +67,8 @@
 }
 
 .imageWrapper {
-    background-color: red;
+    /* border-radius: 10px; */
+    /* overflow: hidden; */
     /* justify-self: center; */
     margin: auto 1em auto 0.4em;
     height: 40px;

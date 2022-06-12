@@ -1,21 +1,23 @@
 import { createContext, useState, useContext, ReactNode, useEffect, useRef } from 'react'
 import nookies from 'nookies'
-import { Track } from '../helpers/types';
+import { Favorites, PlaylistData, Track } from '../helpers/types';
 
 type favContextType = {
-    fav: Track[];
+    fav: Favorites;
     addFav: (track: Track) => void;
     removeFav: (track: Track) => void;
     isFav: (track: Track) => boolean;
-    setFav: (favorites: Favorites) => void;
+    setFav: (favorites: Favorites, change?: boolean) => void;
+    favNumber: number;
 };
 
 const favContextDefaultValues: favContextType = {
-    fav: [],
+    fav: { '0': false },
     addFav: () => { },
     removeFav: () => { },
     isFav: () => false,
-    setFav: () => { }
+    setFav: () => { },
+    favNumber: 0,
 };
 
 const FavContext = createContext<favContextType>(favContextDefaultValues);
@@ -28,17 +30,15 @@ type Props = {
     children: ReactNode;
 };
 
-type Favorites = {
-    favList: Track[]
+export function initFavorites(playlist: PlaylistData): Favorites {
+    // var favList = tracks.map((e) => { e.id: false })
+    var favList: { [id: string]: boolean } = {}
+    playlist.tracks.map((e) => favList[e.track.id] = false)
+    writeFavorites(favList)
+    return favList
 }
 
-export function initFavorites(): Favorites {
-    const favorites = { favList: [] }
-    writeFavorites(favorites)
-    return { favList: [] }
-}
-
-export function fetchFavorites(context: any): Favorites {
+export function fetchFavorites(context: any, playlist: PlaylistData): Favorites {
     try {
         var favorites: Favorites = JSON.parse(nookies.get(context).favorites)
         return favorites
@@ -47,7 +47,7 @@ export function fetchFavorites(context: any): Favorites {
         console.error("Error while parsing localStorage favorites: ", e)
     }
 
-    return initFavorites()
+    return initFavorites(playlist)
 }
 
 export function writeFavorites(favorites: Favorites) {
@@ -59,54 +59,61 @@ export function writeFavorites(favorites: Favorites) {
     }
 }
 
-export function FavProvider({ children }: Props) {
-    const [fav, handleFav] = useState<Track[]>([]);
 
-    const setFav = (favorites: Favorites) => {
+
+
+
+export function FavProvider({ children }: Props) {
+    const [fav, handleFav] = useState<Favorites>({});
+    const [favNumber, handleFavNumber] = useState<number>(0)
+
+    const setFav = (favorites: Favorites, change?: boolean) => {
         writeFavorites(favorites)
-        handleFav([...favorites.favList])
-        // handleFav(favorites.favList)
+        handleFav(favorites)
+
+        // If change argument is provided, we add or remove a fav
+        // if no change argument is provided, this means this is an init, and we neeed to recalculate favNumber
+        if (change != null) {
+            const newNumber: number = change == true ? favNumber + 1 : favNumber - 1;
+            handleFavNumber(newNumber)
+        }
+        else {
+            handleFavNumber(getFavNumber(favorites))
+        }
     }
 
-    const addFav = (newTrack: Track) => {
-        if (isFav(newTrack)) {
+    const getFavNumber = (favorites: Favorites): number => {
+        var favNumber = 0;
+        for (var [key, value] of Object.entries(favorites)) { value == true && favNumber++ }
+        return favNumber
+    }
+
+    const addFav = (track: Track) => {
+        if (isFav(track)) {
             console.error('Cannot Add Fav Twice')
             return false
         }
-        try {
-            var favorites: Favorites = { favList: fav }
-            favorites.favList.push(newTrack)
-            setFav(favorites)
-            return true
-        }
-        catch (e) {
-            console.error('Error while adding a new favorite: ', e);
-            return false
-        }
+        fav[track.id] = true;
+        setFav(fav, true)
+        return true
     }
 
     const removeFav = (track: Track) => {
-        try {
-            var newFavorites: Favorites = { favList: [...fav] }
-            const index = newFavorites.favList.findIndex(elt => elt.id === track.id)
-            if (index > -1) {
-                newFavorites.favList.splice(index, 1)
-                setFav(newFavorites)
-                return true
-            }
+        if (!isFav(track)) {
+            console.error('Cannot remove fav that is not already fav')
+            return false
         }
-        catch (e) {
-            console.error('Error while deleting favorite nb ', track.id);
-        }
-        return false
+        fav[track.id] = false;
+        setFav(fav, false)
+        return true
     }
 
     const isFav = (track: Track): boolean => {
-        return fav.some(elt => elt.id === track.id)
+        return fav[track.id] == true
     }
 
     const value = {
-        fav, addFav, removeFav, isFav, setFav, handleFav
+        fav, addFav, removeFav, isFav, setFav, handleFav, favNumber
     }
 
     return (
