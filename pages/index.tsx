@@ -25,14 +25,6 @@ const FavNumberIndicator = () => {
   )
 }
 
-const FirstRow = () => {
-  return (
-    <div>
-      album
-    </div>
-  )
-}
-
 
 const Home: NextPage<Props> = (props) => {
   const { initQueue } = usePlay()
