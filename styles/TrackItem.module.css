@@ -94,7 +94,7 @@
 }
 
 .currentTrack {
-    color: green
+    color: var(--clr-accent-500)
 }
 
 .trackArtist {

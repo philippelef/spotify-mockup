@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -9,8 +8,8 @@ import { PlaylistData, Props } from '../helpers/types';
 import TrackItem from '../components/TrackItem';
 import { fetchPlaylist } from '../helpers/fetchPlaylist';
 import { usePlay } from '../context/PlayContext';
-import Favorites from './favorites';
 import { TrackList } from '../components/TrackList';
+import PlaylistHeader from '../components/PlaylistHeader';
 
 const FavNumberIndicator = () => {
   const router = useRouter()
@@ -39,14 +38,7 @@ const Home: NextPage<Props> = (props) => {
   return (
     <div className={styles.HomePage}>
       <FavNumberIndicator />
-      <div>
-        <Image
-          src={props.playlist.images[0].url}
-          alt='Playlist Image'
-          height="100px"
-          width="100px"
-        />
-      </div>
+      <PlaylistHeader playlist={props.playlist} />
       <TrackList>
         {
           props.playlist.tracks.map((playlistTrack, i) => {

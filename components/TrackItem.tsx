@@ -14,7 +14,7 @@ const Index = ({ unavailable, isCurrentSong, play, hover, index }: any) => {
 
     if (!hover) {
         return (
-            <div className={styles.indexNumber}>
+            <div className={styles.indexNumber} style={{ color: isCurrentSong ? 'var(--clr-accent-100' : 'white' }}>
                 {index + 1}
             </div>
         )
@@ -116,7 +116,10 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
                 <div className={styles.likeDuration}>
                     <div className={styles.likeButton}
                         onClick={() => LikeBehavior()}>
-                        <LikeButton color={liked ? 'green' : 'grey'} />
+                        {
+                            (liked || hover) && <LikeButton liked={liked} hover={hover} />
+                        }
+
                     </div>
 
                     <div className={styles.duration}>

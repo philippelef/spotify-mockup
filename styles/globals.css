@@ -1,5 +1,10 @@
 html,
 body {
+  --clr-accent-500: #c17aff;
+  --clr-accent-100: #ddb9fe;
+  --clr-like: white;
+
+  --clr-primary-200: grey;
   padding: 0;
   margin: 0;
   background-color: #121212;

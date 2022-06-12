@@ -28,7 +28,7 @@ export function TrackList({ children }: Props) {
                     </div>
 
                     <div className={styles.clockWrapper}>
-                        <Clock />
+                        <Clock color={"white"} />
                     </div>
                 </div>
             </div>
