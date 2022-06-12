@@ -11,9 +11,6 @@ import LikeButton from "./Buttons/LikeButton"
 
 const Index = ({ unavailable, isCurrentSong, play, hover, index }: any) => {
     const color = 'white'
-    if (unavailable) {
-        return (<div />)
-    }
 
     if (!hover) {
         return (
