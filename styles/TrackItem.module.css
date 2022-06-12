@@ -55,10 +55,6 @@
     grid-column: index;
     justify-self: start;
 }
-  
-.trackItemWrapperCurrent {
-    background-color: #effdef;
-}
 
 .trackNameArtistImage {
     height: 56px;
@@ -89,6 +85,7 @@
 }
 
 .trackTitle {
+    padding: 0.2em 0;
     text-overflow: ellipsis;
     overflow:hidden;
     white-space: nowrap;
@@ -96,11 +93,16 @@
     font-weight: 500;
 }
 
+.currentTrack {
+    color: green
+}
+
 .trackArtist {
     word-break: break-all;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    /* color: white !important; */
 }
 
 .trackAlbum {

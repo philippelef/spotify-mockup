@@ -69,8 +69,7 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
 
     return (
         <div className={styles.trackItemStyling}>
-            <div className={`${styles.trackItemWrapper} 
-            ${isCurrentSong ? styles.trackItemWrapperCurrent : ''} 
+            <div className={`${styles.trackItemWrapper}  
             ${unavailable && styles.trackUnavailable}
             ${hover && styles.trackHover}`}
                 onDoubleClick={() => PlayButtonBehavior()}
@@ -93,7 +92,9 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
                         />
                     </div>
                     <div className={styles.trackInfo}>
-                        <div className={styles.trackTitle}>
+                        <div className={`${styles.trackTitle}
+                        ${isCurrentSong ? styles.currentTrack : ''}`}
+                        >
                             {/* Lorem ipsum dosdfsdflor sit amet consectetur adipisicing elit. Dolorum voluptate harum error iste ratione nesciunt, sint natus molestiae officia vitae asperiores a doloremque ducimus, excepturi molestias quisquam voluptas tenetur aliquid necessitatibus repellat ex accusantium! Ad dolorem ratione, repellendus officia consequuntur, aliquid quod saepe necessitatibus facilis, labore reiciendis a ut in. */}
                             {track.name}
                         </div>
@@ -123,7 +124,7 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
                     </div>
                 </div>
             </div >
-        </div>
+        </div >
     )
 
 }
