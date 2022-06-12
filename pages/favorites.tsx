@@ -12,25 +12,28 @@ import styles from "../styles/TrackItem.module.css"
 
 const FavWrapper = ({ playlistTrack, i }: any) => {
     const { fav } = useFav()
-    const [remove, setRemove] = useState<boolean>(false)
-    const [canRemove, setCanRemove] = useState<boolean>(false)
+    const [startRemove, setStartRemove] = useState<boolean>(false)
+    const [endRemove, setEndRemove] = useState<boolean>(false)
 
     useEffect(() => {
-        setRemove(!fav[playlistTrack.track.id])
         if (fav[playlistTrack.track.id] == false) {
-            console.log("removing Track with Anim!")
+            setStartRemove(true)
         }
     }, [fav[playlistTrack.track.id]])
-    if (!canRemove) {
+
+    if (!endRemove) {
         return (
-            <div className={`${remove && styles.RemoveAnim}`}
-                onAnimationEnd={() => setCanRemove(true)}>
+            <div className={`${startRemove && styles.RemoveAnim}`}
+                onAnimationEnd={() => setEndRemove(true)}>
                 <TrackItem
                     track={playlistTrack.track}
                     index={i}
                 />
             </div>
         )
+    }
+    else {
+        return (<></>)
     }
 }
 
@@ -72,9 +75,15 @@ export async function getServerSideProps(context: any) {
     var playlistData: PlaylistData = await fetchPlaylist(context)
     var favorites = fetchFavorites(context, playlistData)
 
+    var likedTracks: PlaylistTrack[] = playlistData.tracks.filter((e) => favorites[e.track.id] == true)
+    var newPlaylist: PlaylistData = { name: playlistData.name, images: playlistData.images, tracks: likedTracks }
+    // playlistData.tracks = newPlaylist
+    // console.log("Ancienne de bg: ", playlistData)
+    // console.log("newPlaylist de bg: ", playlistData.tracks)
+
     return {
         props: {
-            playlist: playlistData,
+            playlist: newPlaylist,
             favorites: favorites
         }
     }

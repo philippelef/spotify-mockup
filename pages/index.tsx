@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { getFavNumber, useFav } from '../context/FavContext';
+import { useFav } from '../context/FavContext';
 import { fetchFavorites } from '../context/FavContext';
 import { PlaylistData, Props } from '../helpers/types';
 import TrackItem from '../components/TrackItem';
@@ -15,7 +15,6 @@ const FavNumberIndicator = () => {
   const { favNumber } = useFav()
 
   useEffect(() => {
-    console.log("favNumber", favNumber)
   }, [favNumber])
   return (
     <a onClick={() => router.push('/favorites')}>
@@ -48,13 +47,11 @@ const Home: NextPage<Props> = (props) => {
       {
         props.playlist.tracks.map((playlistTrack, i) => {
           return (
-            <div>
-              <TrackItem
-                key={playlistTrack.track.id}
-                track={playlistTrack.track}
-                index={i}
-              />
-            </div>
+            <TrackItem
+              key={playlistTrack.track.id}
+              track={playlistTrack.track}
+              index={i}
+            />
           )
         }
         )

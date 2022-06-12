@@ -43,7 +43,6 @@ const TrackItem = ({ track, index }: any) => {
     const [liked, setLiked] = useState<boolean>(false)
 
     useEffect(() => {
-        console.log('isFav?', isFav(track))
         setLiked(isFav(track))
     }, [fav[track.id]])
 
