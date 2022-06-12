@@ -13,7 +13,9 @@ import { fetchPlaylist } from "../helpers/fetchPlaylist"
 import { PlaylistData, PlaylistTrack, Props } from "../helpers/types"
 import styles from "../styles/TrackItem.module.css"
 
-const FavWrapper = ({ playlistTrack, i }: any) => {
+// This component is essential to put an animation when you unlike a song
+// otherwise it gets instantly unmounted and you can't do anything
+const FavWrapper = ({ playlistTrack, index }: any) => {
     const { fav } = useFav()
     const [startRemove, setStartRemove] = useState<boolean>(false)
     const [endRemove, setEndRemove] = useState<boolean>(false)
@@ -30,7 +32,7 @@ const FavWrapper = ({ playlistTrack, i }: any) => {
                 onAnimationEnd={() => setEndRemove(true)}>
                 <TrackItem
                     track={playlistTrack.track}
-                    index={i}
+                    index={index}
                     favValue={true}
                     added_at={playlistTrack.added_at}
                 />
@@ -66,7 +68,7 @@ const Favorites: NextPage<Props> = (props) => {
                         return <FavWrapper
                             key={playlistTrack.track.id}
                             playlistTrack={playlistTrack}
-                            i={i}
+                            index={i}
                             added_at={playlistTrack.added_at}
                         />
                     }

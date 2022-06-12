@@ -76,7 +76,7 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
             >
-                <div className={styles.index}
+                <div className={styles.indexStyle}
                     onClick={() => PlayButtonBehavior()}>
                     <Index unavailable={unavailable} isCurrentSong={isCurrentSong} play={play} hover={hover} index={index} />
                 </div>

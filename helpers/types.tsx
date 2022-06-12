@@ -16,7 +16,6 @@ export type Track = {
     preview_url: string
     artists: Artist[]
     album: Album
-    like: boolean
     duration_ms: number
 }
 

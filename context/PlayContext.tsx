@@ -6,6 +6,7 @@ const initialSong: Track = {
     id: '',
     preview_url: '',
     artists: [],
+    duration_ms: 0,
     album: {
         id: '',
         name: '',
