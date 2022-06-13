@@ -82,7 +82,7 @@ const TrackItem = ({ track, index, favValue, added_at, isMobile }: any) => {
         ${isMobile && styles.disable}`
         }
             onClick={() => {
-                if (isMobile) { console.log("click de mobile"); PlayButtonBehavior() }
+                if (isMobile) { PlayButtonBehavior() }
             }}
             onDoubleClick={() => PlayButtonBehavior()}
         >

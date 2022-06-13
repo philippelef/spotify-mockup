@@ -17,7 +17,7 @@
     }
 
     .trackItemWrapper:not(.disable):not(.trackUnavailable):hover .imageHover {
-        display: none;
+        display: flex;
     }
     
     .trackItemWrapper:not(.disable):not(.trackUnavailable):hover .playImageHover {
@@ -59,7 +59,6 @@
 
 .trackUnavailable {
     opacity: 30%;
-    /* background-color: rgba(246, 237, 237, 0.1); */
 }
 
 
@@ -74,9 +73,9 @@
 
 .indexStyle {
     font-size: 1.1em;
-    /* font-weight: 400; */
+    font-weight: 400;
     grid-column: index;
-    justify-self: start;
+    
 }
 
 .trackNameArtistImage {
@@ -168,6 +167,7 @@
 .indexNumber {
     width: 16px;
     text-align: center;
+    justify-self: center;
 }
 
 .indexInteract {
@@ -207,7 +207,7 @@
     visibility:visible;
 }
 .trackItemStyling:not(.disable):hover .indexInteract {
-    display:block;
+    display:flex;
 }
 .trackItemWrapper:not(.trackUnavailable):not(.disable):hover .indexNumber {
     display: none;
