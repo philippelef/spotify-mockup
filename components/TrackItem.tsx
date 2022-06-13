@@ -9,18 +9,22 @@ import PlayButton from "./Buttons/PlayButton"
 import PauseButton from "./Buttons/PauseButton"
 import LikeButton from "./Buttons/LikeButton"
 
-const Index = ({ unavailable, isCurrentSong, play, hover, index }: any) => {
+const Index = ({ unavailable, isCurrentSong, play, index }: any) => {
     const color = 'white'
 
-    if (!hover) {
-        return (
+    return (
+        <>
+            <div className={styles.indexInteract}>
+                {
+                    isCurrentSong && play ? <PauseButton color={color} /> : <PlayButton color={color} />
+                }
+            </div>
             <div className={styles.indexNumber} style={{ color: isCurrentSong ? 'var(--clr-accent-100' : 'white' }}>
                 {index + 1}
-            </div>
-        )
-    }
 
-    return isCurrentSong && play ? <PauseButton color={color} /> : <PlayButton color={color} />
+            </div>
+        </>
+    )
 }
 
 
@@ -37,13 +41,12 @@ function duration_parse(duration_ms: number): string {
 }
 
 
-const TrackItem = ({ track, index, favValue, added_at }: any) => {
+const TrackItem = ({ track, index, favValue, added_at, isMobile }: any) => {
     const dateAdded: string = date_parse(added_at)
     const trackDuration: string = duration_parse(track.duration_ms)
 
     const { song, setSong, play, setPlay } = usePlay()
     const { addFav, removeFav, fav, isFav } = useFav()
-    const [hover, setHover] = useState<boolean>(false)
 
     const unavailable: boolean = track.preview_url == null
 
@@ -68,17 +71,20 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
 
 
     return (
-        <div className={styles.trackItemStyling}>
+        <div className={`${styles.trackItemStyling}
+        ${isMobile && styles.disable}`
+        }
+            onClick={() => {
+                if (isMobile) { console.log("click de mobile"); PlayButtonBehavior() }
+            }}
+            onDoubleClick={() => PlayButtonBehavior()}
+        >
+
             <div className={`${styles.trackItemWrapper}  
-            ${unavailable && styles.trackUnavailable}
-            ${hover && styles.trackHover}`}
-                onDoubleClick={() => PlayButtonBehavior()}
-                onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}
-            >
+            ${unavailable && styles.trackUnavailable}`}>
                 <div className={styles.indexStyle}
                     onClick={() => PlayButtonBehavior()}>
-                    <Index unavailable={unavailable} isCurrentSong={isCurrentSong} play={play} hover={hover} index={index} />
+                    <Index unavailable={unavailable} isCurrentSong={isCurrentSong} play={play} index={index} />
                 </div>
 
                 <div className={styles.trackNameArtistImage}>
@@ -95,7 +101,6 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
                         <div className={`${styles.trackTitle}
                         ${isCurrentSong ? styles.currentTrack : ''}`}
                         >
-                            {/* Lorem ipsum dosdfsdflor sit amet consectetur adipisicing elit. Dolorum voluptate harum error iste ratione nesciunt, sint natus molestiae officia vitae asperiores a doloremque ducimus, excepturi molestias quisquam voluptas tenetur aliquid necessitatibus repellat ex accusantium! Ad dolorem ratione, repellendus officia consequuntur, aliquid quod saepe necessitatibus facilis, labore reiciendis a ut in. */}
                             {track.name}
                         </div>
                         <div className={styles.trackArtist}>
@@ -114,19 +119,19 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
                 </div>
 
                 <div className={styles.likeDuration}>
-                    <div className={styles.likeButton}
-                        onClick={() => LikeBehavior()}>
-                        {
-                            (liked || hover) && <LikeButton liked={liked} hover={hover} />
-                        }
 
+                    <div className={`${!liked && styles.likeVisibilityWrapper}`}>
+                        <div className={styles.likeButton}
+                            onClick={() => LikeBehavior()}>
+                            <LikeButton liked={liked} />
+                        </div>
                     </div>
-
                     <div className={styles.duration}>
                         {trackDuration}
                     </div>
                 </div>
-            </div >
+
+            </div>
         </div >
     )
 

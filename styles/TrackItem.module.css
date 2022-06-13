@@ -4,16 +4,16 @@
 
 @media screen and (max-width: 500px) {
     .trackItemWrapper{
-        grid-template-areas: "index info duration" !important;
-        grid-template-columns: 16px 10fr minmax(80px,1fr) !important;
+        grid-template-areas: "info duration" !important;
+        grid-template-columns: 10fr minmax(80px,1fr) !important;
     }
 
-    .dateAdded {
+    .indexStyle, .hashtag, .duration, .trackAlbum, .dateAdded {
         display: none;
     }
-
-    .trackAlbum {
-        display: none;
+    
+    .likeDuration {
+        justify-content: flex-end !important;
     }
 }
 
@@ -52,9 +52,6 @@
     /* background-color: rgba(246, 237, 237, 0.1); */
 }
 
-.trackHover {
-    background-color: #f8f8f832;
-}
 
 .trackItemWrapper {
     display: grid;
@@ -63,7 +60,6 @@
     grid-template-columns: 16px 6fr  4fr 2fr minmax(80px,0.5fr);
     align-items: center;
     padding-inline: 1em;
-    border-radius: 0.3em;
 }
 
 .indexStyle {
@@ -137,28 +133,35 @@
 }
 
 .likeDuration {
-    justify-self: start;
     display: flex;
     justify-content: space-between;
-    width: 100%;
     min-width: 0;
     grid-column: duration;
     justify-self: end;
 }
 
-.likeButton {
+.likeButton {   
     height: 16px;
-    margin-right: 1em;
+}
+
+.likeVisibilityWrapper {
+    height: 16px;
+    visibility: hidden;
 }
 
 .duration {
     /* min-width: 0; */
+    margin-left: 1.5em;
     vertical-align: middle;
 }
 
 .indexNumber {
     width: 16px;
     text-align: center;
+}
+
+.indexInteract {
+    display: none;
 }
 
 .hashtag {
@@ -183,4 +186,19 @@
     font-size: 0.8rem;
     font-weight: 300;
     height: 56px;
+    border-radius: 0.3em;
+}
+
+.trackItemStyling:not(.disable):hover {
+    background-color: #f8f8f832;
+}
+
+.trackItemStyling:not(.disable):hover .likeVisibilityWrapper{
+    visibility:visible;
+}
+.trackItemStyling:not(.disable):hover .indexInteract {
+    display:block;
+}
+.trackItemStyling:not(.disable):hover .indexNumber {
+    display: none;
 }

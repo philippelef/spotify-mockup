@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import styles from '../styles/Home.module.css'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFav } from '../context/FavContext';
 import { fetchFavorites } from '../context/FavContext';
@@ -24,10 +24,11 @@ const FavNumberIndicator = () => {
   )
 }
 
-
 const Home: NextPage<Props> = (props) => {
   const { initQueue } = usePlay()
   const { setFav } = useFav()
+
+  const [isMobile, setIsMobile] = useState<boolean>(false)
 
   useEffect(() => {
     initQueue(props.playlist.tracks.map((e) => e.track))
@@ -36,7 +37,8 @@ const Home: NextPage<Props> = (props) => {
 
 
   return (
-    <div className={styles.HomePage}>
+    <div className={styles.HomePage} onTouchStart={() => setIsMobile(true)}>
+      {isMobile && 'pute'}
       <FavNumberIndicator />
       <PlaylistHeader playlist={props.playlist} />
       <TrackList>
@@ -44,6 +46,7 @@ const Home: NextPage<Props> = (props) => {
           props.playlist.tracks.map((playlistTrack, i) => {
             return (
               <TrackItem
+                isMobile={isMobile}
                 key={playlistTrack.track.id}
                 track={playlistTrack.track}
                 added_at={playlistTrack.added_at}

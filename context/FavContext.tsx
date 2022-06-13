@@ -55,7 +55,7 @@ export function writeFavorites(favorites: Favorites) {
         nookies.set(null, "favorites", JSON.stringify(favorites), { path: "/" })
     }
     catch (e) {
-        console.log("Can't write fav")
+        console.error("Can't write fav")
     }
 }
 
