@@ -96,13 +96,25 @@ const TrackItem = ({ track, index, favValue, added_at, isMobile }: any) => {
 
                 <div className={styles.trackNameArtistImage}>
                     <div className={styles.imageWrapper}>
-                        <Image
-                            src={track.album.images ? track.album.images[0].url : '/no_image.png'}
-                            layout='fixed'
-                            height="40px"
-                            width="40px"
-                            alt='Playlist Image'
-                        />
+                        <div className={`${styles.playImageHover}`}
+                            onClick={() => PlayButtonBehavior()}>
+                            <div className={styles.mobilePlayButton}>
+                                {
+                                    isCurrentSong && play ? <PauseButton color={"white"} /> : <PlayButton color={"white"} />
+
+                                }
+                            </div>
+                        </div>
+                        <div className={styles.imageHover}>
+                            <Image
+                                src={track.album.images ? track.album.images[0].url : '/no_image.png'}
+                                layout='fixed'
+                                height="40px"
+                                width="40px"
+                                alt='Playlist Image'
+                            />
+                        </div>
+
                     </div>
                     <div className={styles.trackInfo}>
                         <div className={`${styles.trackTitle}

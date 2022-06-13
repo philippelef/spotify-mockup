@@ -15,7 +15,17 @@
     .likeDuration {
         justify-content: flex-end !important;
     }
+
+    .trackItemWrapper:not(.disable):not(.trackUnavailable):hover .imageHover {
+        display: none;
+    }
+    
+    .trackItemWrapper:not(.disable):not(.trackUnavailable):hover .playImageHover {
+        display: flex;
+    }
 }
+
+
 
 @media screen and (max-width: 700px) and (min-width: 501px) {
     .trackItemWrapper{
@@ -202,3 +212,20 @@
 .trackItemWrapper:not(.trackUnavailable):not(.disable):hover .indexNumber {
     display: none;
 }
+
+.mobilePlayButton {
+    width: 50%;
+    height: 50%;
+}
+
+.playImageHover {
+    /* background-color: blue; */
+    margin: auto 1em auto 0em;
+    height: 40px;
+    width: 40px;
+    /* padding-right: 0.8em; */
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+

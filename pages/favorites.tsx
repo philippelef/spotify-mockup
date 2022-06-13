@@ -58,7 +58,7 @@ const Favorites: NextPage<Props> = (props) => {
 
     return (
         <div>
-            <a onClick={() => router.push('/')}>
+            <a onClick={() => router.push('/', undefined, { shallow: true })}>
                 -{'>'}Playlist
             </a>
             <PlaylistHeader playlist={props.playlist} />
@@ -83,6 +83,8 @@ const Favorites: NextPage<Props> = (props) => {
 export async function getServerSideProps(context: any) {
     var playlistData: PlaylistData = await fetchPlaylist()
     var favorites = fetchFavorites(context, playlistData)
+
+    console.log("we run here")
 
     var likedTracks: PlaylistTrack[] = playlistData.tracks.filter((e) => favorites[e.track.id] == true)
     var newPlaylist: PlaylistData = { name: 'Liked Songs', images: [{ url: '/likedSongs.png' }], tracks: likedTracks }
