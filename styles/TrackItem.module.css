@@ -17,7 +17,7 @@
     }
 
     .trackItemWrapper:not(.disable):not(.trackUnavailable):hover .imageHover {
-        display: flex;
+        display: none;
     }
     
     .trackItemWrapper:not(.disable):not(.trackUnavailable):hover .playImageHover {
