@@ -10,18 +10,25 @@ import PauseButton from "./Buttons/PauseButton"
 import LikeButton from "./Buttons/LikeButton"
 
 const Index = ({ unavailable, isCurrentSong, play, index }: any) => {
-    const color = 'white'
+    if (unavailable) {
+        return (
+            <div className={styles.indexNumber}>
+                {index + 1}
+            </div>
+        )
+    }
 
+    const color = 'white'
     return (
         <>
             <div className={styles.indexInteract}>
                 {
                     isCurrentSong && play ? <PauseButton color={color} /> : <PlayButton color={color} />
+
                 }
             </div>
             <div className={styles.indexNumber} style={{ color: isCurrentSong ? 'var(--clr-accent-100' : 'white' }}>
                 {index + 1}
-
             </div>
         </>
     )

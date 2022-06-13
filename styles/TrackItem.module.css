@@ -199,6 +199,6 @@
 .trackItemStyling:not(.disable):hover .indexInteract {
     display:block;
 }
-.trackItemStyling:not(.disable):hover .indexNumber {
+.trackItemWrapper:not(.trackUnavailable):not(.disable):hover .indexNumber {
     display: none;
 }
