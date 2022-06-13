@@ -2,7 +2,7 @@
     margin: 0em 1em 0em 1em;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .trackItemWrapper{
         grid-template-areas: "info duration" !important;
         grid-template-columns: 10fr minmax(80px,1fr) !important;
@@ -16,18 +16,18 @@
         justify-content: flex-end !important;
     }
 
-    .trackItemWrapper:not(.disable):not(.trackUnavailable):hover .imageHover {
+    .trackItemStyling:not(.disable):not(.trackUnavailable):hover .imageHover {
         display: none;
     }
     
-    .trackItemWrapper:not(.disable):not(.trackUnavailable):hover .playImageHover {
+    .trackItemStyling:not(.disable):not(.trackUnavailable):hover .playImageHover {
         display: flex;
     }
 }
 
 
 
-@media screen and (max-width: 750px) and (min-width: 501px) {
+@media screen and (max-width: 950px) and (min-width: 601px) {
     .trackItemWrapper{
         grid-template-areas: "index info album duration" !important;
         grid-template-columns: 16px 4fr 2fr minmax(80px,1fr) !important;
@@ -211,7 +211,7 @@
 .trackItemStyling:not(.disable):hover .indexInteract {
     display:flex;
 }
-.trackItemWrapper:not(.trackUnavailable):not(.disable):hover .indexNumber {
+.trackItemStyling:not(.trackUnavailable):not(.disable):hover .indexNumber {
     display: none;
 }
 

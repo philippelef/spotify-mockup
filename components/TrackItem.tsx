@@ -5,9 +5,9 @@ import { usePlay } from "../context/PlayContext"
 import { TrackItemProps } from "../helpers/types"
 import Image from 'next/image'
 import styles from "../styles/TrackItem.module.css"
-import PlayButton from "./Buttons/PlayButton"
-import PauseButton from "./Buttons/PauseButton"
-import LikeButton from "./Buttons/LikeButton"
+import PlayButton from "./Utils/PlayButton"
+import PauseButton from "./Utils/PauseButton"
+import LikeButton from "./Utils/LikeButton"
 
 const Index = ({ unavailable, isCurrentSong, play, index }: any) => {
     if (unavailable) {

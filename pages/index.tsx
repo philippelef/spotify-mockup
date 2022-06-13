@@ -11,18 +11,6 @@ import { usePlay } from '../context/PlayContext';
 import { TrackList } from '../components/TrackList';
 import PlaylistHeader from '../components/PlaylistHeader';
 
-const FavNumberIndicator = () => {
-  const router = useRouter()
-  const { favNumber } = useFav()
-
-  useEffect(() => {
-  }, [favNumber])
-  return (
-    <a onClick={() => router.push('/favorites')}>
-      -{'>'}Favorites {favNumber}
-    </a>
-  )
-}
 
 const Home: NextPage<Props> = (props) => {
   const { initQueue } = usePlay()
@@ -38,8 +26,6 @@ const Home: NextPage<Props> = (props) => {
 
   return (
     <div className={styles.HomePage} onTouchStart={() => setIsMobile(true)}>
-      {isMobile && 'pute'}
-      <FavNumberIndicator />
       <PlaylistHeader playlist={props.playlist} />
       <TrackList>
         {

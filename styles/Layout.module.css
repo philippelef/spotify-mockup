@@ -1,11 +1,40 @@
 .Root {
-    --footer-height: 90px;
+    /* --footer-height: 90px; */
+    /* height: 100vh; */
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    /* overflow: hidden; */
+  /* mobile viewport bug fix */
+    /* min-height: -webkit-fill-available;*/
+    /* height: -webkit-fill-available;  */
+
+
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr 50px;
+
+    grid-template-areas:
+    "navBar mainView"
+    "playerFooter playerFooter";
 }
   
 .MainView {
-min-height: calc(100vh - var(--footer-height));
-height: 10px;
-overflow: scroll;
+    overflow: scroll;
+    vertical-align: baseline;
+    grid-area: mainView;
+
+    /* min-height: calc(100vh - var(--footer-height));
+    height: 10px; */
+    /* overflow: scroll; */
+}
+
+.SideBar {
+    grid-area: navBar;
+}
+
+.playerFooter {
+    grid-area: playerFooter;
 }
   
   

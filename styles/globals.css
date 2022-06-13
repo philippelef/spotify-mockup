@@ -1,5 +1,11 @@
-html,
+html {
+
+}
 body {
+  
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+  
   --clr-accent-500: #c17aff;
   --clr-accent-100: #ddb9fe;
 

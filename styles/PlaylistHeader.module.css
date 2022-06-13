@@ -1,4 +1,4 @@
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .playlistHeader {
         justify-content: center;
         flex-direction: column;
@@ -21,7 +21,7 @@
     }
 }
 
-@media screen and (min-width: 501px) {
+@media screen and (min-width: 601px) {
     .playlistHeader {
         /* padding-right: 10em; */
         height: 30vh;
@@ -51,9 +51,10 @@
 
 .playlistHeader {
     padding-top: 1em;
+    background-color:var(--clr-background);
     background-image: linear-gradient(
         0deg,
-        hsl(0deg 0% 7%) 36%,
+        rgb(255, 255, 255, 0.1) 0%,
         hsl(273deg 19% 19%) 88%,
         rgba(83, 61, 102, 0.294) 98%,
         rgba(157, 110, 201, 0.217) 101%,

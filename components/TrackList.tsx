@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import styles from "../styles/TrackItem.module.css"
-import Clock from "./Buttons/Clock";
+import Clock from "./Utils/Clock";
 
 type Props = {
     children: ReactNode;
