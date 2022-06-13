@@ -1,40 +1,48 @@
-import { useRouter } from "next/router"
+import { Router, useRouter } from "next/router"
 import { useEffect } from "react"
 import { useFav } from "../context/FavContext"
 import styles from "../styles/SideBar.module.css"
 import Shotgun from "./Utils/Shotgun"
+import Image from 'next/image'
 
-const FavNumberIndicator = () => {
-    const router = useRouter()
-    const { favNumber } = useFav()
 
-    useEffect(() => {
-    }, [favNumber])
-
-    return (
-        <a onClick={() => router.push('/favorites')}>
-            -{'>'}Favorites {favNumber}
-        </a>
-    )
-}
 
 const PlaylistElement = ({ playlist }: any) => {
-    return (<div>
-        {playlist.link}
-    </div>)
+    const router = useRouter()
+    const { favNumber } = useFav()
+    return (
+        <div className={styles.playlistItem}>
+            <div className={styles.playlistImage}
+                onClick={() => router.push(playlist.link)}
+            >{
+                    playlist.link === '/favorites' &&
+                    <div className={styles.likeNumber}>
+                        {favNumber}
+                    </div>
+                }
+
+                <Image
+                    src={playlist.image}
+                    width="56px"
+                    height="56px"
+                    layout="fixed"
+                />
+            </div>
+            {/* {playlist.link} */}
+        </div>)
 }
 
 const PlaylistMap = () => {
     const playlistMap = [
         {
-            name: '',
-            'link': '/',
-            image: '/no_image.png'
+            'link': '/favorites',
+            image: '/likedSongs.png'
         },
         {
-            'link': '/favorites',
-            image: '/no_image.png'
-        }
+            name: '',
+            'link': '/',
+            image: '/mainPlaylist.png'
+        },
     ]
 
     return (
@@ -53,7 +61,6 @@ const SideBar = () => {
         <div className={styles.sideBarMain}>
             <Shotgun />
             <PlaylistMap />
-            <FavNumberIndicator />
         </div>
     )
 }

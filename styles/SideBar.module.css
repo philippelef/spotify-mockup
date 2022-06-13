@@ -6,7 +6,7 @@
 
 @media screen and (max-width: 950px) and (min-width: 601px) {
     .sideBarMain {
-        max-width: 30px;
+        margin-inline: 0.4em !important;
     }
 
     .shotgunMinimalLogo {
@@ -47,5 +47,31 @@
 
 .playlistMap {
     margin: 5em 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;   
+}
+
+.playlistItem {
+    margin: 1em 0;
+}
+
+.likeNumber {
+    position: absolute;
+    vertical-align: middle;
+    width: inherit;
+    height: inherit;
+    line-height: 56px;
+    text-align: center;
+    z-index: 100;
+}
+
+
+.playlistImage {
+    border-radius: 0.3em;
+    overflow: hidden;
+    height: 56px;
+    width: 56px;
 }
 

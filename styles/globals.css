@@ -14,6 +14,9 @@ body {
   --clr-like: white;
 
   --clr-background: #121212;
+  --clr-background-200: #181818;
+  --clr-background-600: #0e0d0d;
+  --clr-background-900: #000000;
 
   --clr-primary-200: grey;
   padding: 0;
