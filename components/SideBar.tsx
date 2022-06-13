@@ -26,8 +26,15 @@ const PlaylistElement = ({ playlist }: any) => {
 
 const PlaylistMap = () => {
     const playlistMap = [
-        { 'link': '/', image: '/no_image.png' },
-        { 'link': '/favorites', image: '/no_image.png' }
+        {
+            name: '',
+            'link': '/',
+            image: '/no_image.png'
+        },
+        {
+            'link': '/favorites',
+            image: '/no_image.png'
+        }
     ]
 
     return (

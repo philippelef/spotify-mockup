@@ -12,9 +12,10 @@ import LikeButton from "./Utils/LikeButton"
 const Index = ({ unavailable, isCurrentSong, play, index }: any) => {
     if (unavailable) {
         return (
-            <div className={styles.indexNumber}>
-                {index + 1}
-            </div>
+            <div className={styles.indexNumberUnavailable}>
+                {index + 1
+                }
+            </div >
         )
     }
 

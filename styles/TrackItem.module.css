@@ -172,6 +172,12 @@
     justify-self: center;
 }
 
+.indexNumberUnavailable {
+    width: 16px;
+    text-align: center;
+    justify-self: center;
+}
+
 .indexInteract {
     display: none;
 }
@@ -211,8 +217,11 @@
 .trackItemStyling:not(.disable):hover .indexInteract {
     display:flex;
 }
-.trackItemStyling:not(.trackUnavailable):not(.disable):hover .indexNumber {
+.trackItemStyling:not(.disable):hover .indexNumber {
     display: none;
+}
+
+.trackItemStyling:not(.trackUnavailable):hover .indexNumber{
 }
 
 .mobilePlayButton {
