@@ -13,8 +13,6 @@
     }
 
     .playlistTitle {
-        font-weight: 800;
-        margin: 0.4em 0;
         font-size: 1.4rem;
     }
 }
@@ -42,14 +40,27 @@
     }
 
     .playlistTitle {
-        line-height: 1;
-        font-weight: 800;
-        margin: 0.4em 0;
         font-size: max(2.5rem, 4vw);
     }
 }
 
 
+.playlistHeader {
+    padding-top: 1em;
+    background-image: linear-gradient(
+        0deg,
+        hsl(0deg 0% 7%) 36%,
+        hsl(273deg 19% 19%) 88%,
+        rgba(83, 61, 102, 0.294) 98%,
+        rgba(157, 110, 201, 0.217) 101%,
+        rgba(198, 138, 255, 0.047) 100%
+      );
+}
+
+.playlistTitle {
+    font-weight: 800;
+    margin: 0.4em 0;
+}
 
 .playlistType {
     font-size: smaller;
@@ -61,8 +72,6 @@
     flex-direction: column;
     justify-content: flex-end;
 }
-
-
 
 
 .playlistSubtitle {

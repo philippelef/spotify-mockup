@@ -116,7 +116,9 @@
 }
 
 .currentTrack {
-    color: var(--clr-accent-500)
+    background: linear-gradient(to left, var(--clr-gradient-left), var(--clr-gradient-right));
+    color: transparent;
+    background-clip: text;
 }
 
 .trackArtist {
