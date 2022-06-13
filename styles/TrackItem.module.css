@@ -189,7 +189,7 @@
     font-weight: 300;
     font-size: 0.8rem;
     height: 30px;
-    margin-bottom: 1em;
+    margin: 1em 0;
 
     border-bottom: 1px solid rgba(255,255,255,.1);
 }
