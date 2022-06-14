@@ -28,6 +28,9 @@ const PlaylistElement = ({ playlist }: any) => {
                     layout="fixed"
                 />
             </div>
+            <div className={styles.playlistName}>
+                {playlist.name}
+            </div>
             {/* {playlist.link} */}
         </div>)
 }
@@ -35,11 +38,12 @@ const PlaylistElement = ({ playlist }: any) => {
 const PlaylistMap = () => {
     const playlistMap = [
         {
+            name: 'Likes songs',
             'link': '/favorites',
-            image: '/likedSongs.png'
+            image: '/likesIconEmpty.png'
         },
         {
-            name: '',
+            name: 'Top (unsorted)',
             'link': '/',
             image: '/mainPlaylist.png'
         },
@@ -49,7 +53,7 @@ const PlaylistMap = () => {
         <div className={styles.playlistMap}>
             {playlistMap.map((e) => {
                 return (
-                    <PlaylistElement playlist={e} />
+                    <PlaylistElement playlist={e} key={e.link} />
                 )
             })}
         </div>

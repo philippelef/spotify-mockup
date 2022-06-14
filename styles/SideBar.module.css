@@ -55,15 +55,19 @@
 
 .playlistItem {
     margin: 1em 0;
+    cursor: pointer;
 }
 
 .likeNumber {
     position: absolute;
+    /* transform: translate(-10px, 20px); */
+    line-height: 56px;
     vertical-align: middle;
     width: inherit;
     height: inherit;
-    line-height: 56px;
     text-align: center;
+    font-size: 2em;
+    font-weight: 600;
     z-index: 100;
 }
 
@@ -75,3 +79,15 @@
     width: 56px;
 }
 
+
+.playlistName {
+    margin-top: 0.5em;
+    text-align: center;
+    font-size: 0.6em;
+    width: 56px;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+
+}
