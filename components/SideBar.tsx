@@ -7,6 +7,7 @@ import Image from 'next/image'
 import LikeButton from "./Utils/LikeButton"
 import FavIconSvg from "./Utils/FavIconSvg"
 import PlaylistIcon from "./Utils/PlaylistIcon"
+import Link from "next/link"
 
 
 
@@ -14,53 +15,54 @@ const PlaylistElement = ({ playlist }: any) => {
     const router = useRouter()
 
     return (
-        <div className={styles.playlistItem}>
-            <div className={styles.playlistImage}
-                onClick={() => router.push(playlist.link)}
-            >
-                <Image
-                    src="/mainPlaylist.png"
-                    width="100%"
-                    height="100%"
-                    layout="responsive"
-                />
-                {/* <FavIconSvg /> */}
-            </div>
-            <div className={styles.playlistName}>
-                {playlist.name}
-            </div>
-            {/* {playlist.link} */}
-        </div>)
+        <Link href='/'>
+            <a className={styles.playlistItem}>
+                <div className={styles.playlistImage}
+                    onClick={() => router.push(playlist.link)}
+                >
+                    <Image
+                        src="/mainPlaylist.png"
+                        width="100%"
+                        height="100%"
+                        layout="responsive"
+                    />
+                </div>
+                <div className={styles.playlistName}>
+                    {playlist.name}
+                </div>
+            </a>
+        </Link>
+    )
 }
 
 const FavIcon = () => {
-    const router = useRouter()
     const { favNumber } = useFav()
 
     return (
-        <div className={styles.playlistItem}>
-            <div className={styles.favIcon}
-                onClick={() => router.push("/favorites")}
-            >
-                <div className={styles.favIconSquare}>
-                    <div className={styles.playlistImage}>
-                        <Image
-                            src="/likedSongs.png"
-                            width="100%"
-                            height="100%"
-                            layout="responsive"
-                        />
-                        <div className={styles.likeNumber}>
-                            {favNumber}
+        <Link href='/favorites'>
+            <a className={styles.playlistItem}>
+                <div className={styles.favIcon}
+                >
+                    <div className={styles.favIconSquare}>
+                        <div className={styles.playlistImage}>
+                            <Image
+                                src="/likedSongs.png"
+                                width="100%"
+                                height="100%"
+                                layout="responsive"
+                            />
+                            <div className={styles.likeNumber}>
+                                {favNumber}
+                            </div>
+                            {/* <FavIconSvg /> */}
                         </div>
-                        {/* <FavIconSvg /> */}
                     </div>
                 </div>
-            </div>
-            <div className={styles.playlistName}>
-                Likes songs
-            </div>
-        </div>
+                <div className={styles.playlistName}>
+                    Liked songs
+                </div>
+            </a>
+        </Link >
     )
 }
 

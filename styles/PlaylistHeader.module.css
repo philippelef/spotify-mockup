@@ -26,12 +26,12 @@
         /* padding-right: 10em; */
         height: 30vh;
         max-height: 500px;
-        min-height: 240px;
+        min-height: 340px;
     
         overflow: hidden;
         max-width: none;
     
-        padding: 0 16px 2em;
+        padding: 0 16px 24px;
 
         display: flex;
     }
@@ -50,7 +50,6 @@
 
 
 .playlistHeader {
-    padding-top: 1em;
     background-color:var(--clr-background);
     background-image: linear-gradient(
         0deg,
@@ -60,6 +59,12 @@
         rgba(157, 110, 201, 0.217) 101%,
         rgba(198, 138, 255, 0.047) 100%
       );
+}
+
+.playlistImage {
+    position: relative;
+    vertical-align: bottom;
+    font-size: 0;
 }
 
 .playlistTitle {

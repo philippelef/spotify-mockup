@@ -1,13 +1,10 @@
 @media screen and (max-width: 600px) {
     .sideBarMain {
         --square-length: 33px;
-        height: var(--square-length);
+        height: var(--square-length) !important;
         padding: 0 0 !important;
         margin: 1em 3em;
-        display: flex !important;
         flex-direction: row !important;
-        justify-content: space-between !important;
-        /* width: 100px; */
     }
 
     .shotgunMinimalLogo {
@@ -21,12 +18,18 @@
     .playlistName {
         display: none !important;
     }
+
+    
 }
 
 @media screen and (max-width: 950px) and (min-width: 601px) {
     .sideBarMain {
-        margin-inline: 0.5em !important;
+        padding: 10em 0;
+        margin-inline: 16px;
+        --square-length: 56px;
     }
+
+    
 
     .shotgunMinimalLogo {
         display: block !important;
@@ -38,17 +41,51 @@
 
     .playlistItem {
         flex-direction: column !important;
+        width: var(--square-length);
+    }
+
+    .playlistName {
+        margin-top: 0.5em;
+        height: 100%;
+        text-align: center;
+        font-size: 0.6em;
     }
 }
 
 @media screen and (min-width: 951px) {
     .sideBarMain {
+        margin-inline: 24px;
         max-width: 180px;
+        display: block !important;
+        --square-length: 35px;
+    }
+
+    .shotgun {
+        margin: 24px 0;
+        padding-bottom: 24px;
+        height: 56px !important;
+        /* padding: 0 0 13px 0; */
+        border-bottom: solid 1px rgba(255, 255, 255, 0.243);
+    }
+
+    .playlistImage {
+        border-radius: 4px !important;
+    }
+
+    .playlistName {
+        margin-left: 16px;
+        font-size: 1em !important;
+        line-height: var(--square-length);
+    }
+
+    .playlistItem {
+        margin-top: 16px;
+        justify-content: left !important;
     }
 }
 
 .sideBarMain {
-    padding: 10em 0;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -56,58 +93,38 @@
     /* width: 100px; */
 }
 
-.shotgun {
-    height: inherit;
-}
-
 .shotgunMinimalLogo {
     display: none;
-    height: inherit;
+    height: var(--square-length);
     width: inherit;
 }
 
-.shotgunFullLogo {
-    display: block;
-}
-
-
 .playlistItem {
-    /* --square-length: 100%; */
     cursor: pointer;
     display: flex;
     justify-content: center;
     position: relative;
-    width: var(--square-length);
-    height: inherit;
 }
 
 
 .favIcon {
-    width: 100%;
     height: 100%;
-    margin: auto;
     display: flex;
     justify-content: center;
     /* margin-inline: auto; */
     /* justify-self: center; */
-
 }
 
 .favIconSquare {
     position: relative;
-    height: 100%;
-    width: 100%;
 }
 
 
 .playlistImage {
-    height: 100%;
-    width: 100%;
-    margin: auto;
+    height: var(--square-length);
+    width: var(--square-length);
     border-radius: 0.5em;
     overflow: hidden;
-    /* display: flex;
-    justify-content: center; */
 }
 
 .likeNumber {
@@ -117,7 +134,7 @@
     position: absolute;
     /* transform: translate(1.3em, 20px); */
     text-align: center;
-    font-size: 0.9em;
+    font-size: 0.9em !important;
     font-weight: 400;
     z-index: 100;
     background-color: #ca2853;
@@ -127,15 +144,8 @@
 
 
 .playlistName {
-    text-align: center;
-    margin-top: 0.5em;
-    text-align: center;
-    width: 56px;
-    margin: 0.6em auto;
-    font-size: 0.6em;
     text-overflow: ellipsis;
-    word-break: break-all;
-    white-space: nowrap;
-    overflow: hidden;
-
+        word-break: break-all;
+        white-space: nowrap;
+        overflow: hidden;
 }
