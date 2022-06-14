@@ -73,7 +73,7 @@
 
 .indexStyle {
     font-size: 1.1em;
-    font-weight: 400;
+    font-weight: 500;
     grid-column: index;
     
 }
@@ -126,6 +126,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: var(--clr-primary-200)
     /* color: white !important; */
 }
 
@@ -137,6 +138,7 @@
     width: 100%;
     overflow:hidden;
     white-space: nowrap;
+    color: var(--clr-primary-200)
 }
 
 .dateAdded {
@@ -219,6 +221,12 @@
 }
 .trackItemStyling:not(.disable):hover .indexNumber {
     display: none;
+}
+.trackItemStyling:not(.disable):hover .trackArtist {
+    color: var(--clr-primary-100) !important;
+}
+.trackItemStyling:not(.disable):hover .trackAlbum {
+    color: var(--clr-primary-100) !important;
 }
 
 
