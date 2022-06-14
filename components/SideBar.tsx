@@ -18,13 +18,13 @@ const PlaylistElement = ({ playlist }: any) => {
             <div className={styles.playlistImage}
                 onClick={() => router.push(playlist.link)}
             >
-                <PlaylistIcon />
-                {/* <Image
-                    src={playlist.image}
-                    width="56px"
-                    height="56px"
-                    layout="fixed"
-                /> */}
+                <Image
+                    src="/mainPlaylist.png"
+                    width="100%"
+                    height="100%"
+                    layout="responsive"
+                />
+                {/* <FavIconSvg /> */}
             </div>
             <div className={styles.playlistName}>
                 {playlist.name}
@@ -34,15 +34,31 @@ const PlaylistElement = ({ playlist }: any) => {
 }
 
 const FavIcon = () => {
+    const router = useRouter()
     const { favNumber } = useFav()
 
     return (
-        <div className={styles.favIcon}>
-            <div className={styles.playlistImage}>
-                <FavIconSvg />
+        <div className={styles.playlistItem}>
+            <div className={styles.favIcon}
+                onClick={() => router.push("/favorites")}
+            >
+                <div className={styles.favIconSquare}>
+                    <div className={styles.playlistImage}>
+                        <Image
+                            src="/likedSongs.png"
+                            width="100%"
+                            height="100%"
+                            layout="responsive"
+                        />
+                        <div className={styles.likeNumber}>
+                            {favNumber}
+                        </div>
+                        {/* <FavIconSvg /> */}
+                    </div>
+                </div>
             </div>
-            <div className={styles.likeNumber}>
-                {favNumber}
+            <div className={styles.playlistName}>
+                Likes songs
             </div>
         </div>
     )
@@ -78,8 +94,8 @@ const SideBar = () => {
     return (
         <div className={styles.sideBarMain}>
             <Shotgun />
-            <FavIcon />
             <PlaylistMap />
+            <FavIcon />
         </div>
     )
 }

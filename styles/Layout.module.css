@@ -1,23 +1,30 @@
-.Root {
-    /* --footer-height: 90px; */
-    /* height: 100vh; */
-    height: -webkit-fill-available;
-    height: 100vh;
-    max-height: 100vh;
-    /* overflow: hidden; */
-  /* mobile viewport bug fix */
-    /* min-height: -webkit-fill-available;*/
-    /* height: -webkit-fill-available;  */
-
-
-
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: 1fr auto;
+@media screen and (max-width: 600px) {
+   .Root {
+    grid-template-rows: 1fr auto auto;
 
     grid-template-areas:
-    "navBar mainView"
-    "playerFooter playerFooter";
+    "mainView"
+    "playerFooter"
+    "navBar";
+   } 
+}
+
+@media screen and (min-width: 601px) {
+    .Root {
+     grid-template-columns: auto 1fr;
+     grid-template-rows: 1fr auto;
+ 
+     grid-template-areas:
+     "navBar mainView"
+     "playerFooter playerFooter";
+    } 
+ }
+
+.Root {
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    display: grid;
+
 }
   
 .MainView {
