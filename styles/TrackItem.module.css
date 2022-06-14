@@ -221,8 +221,6 @@
     display: none;
 }
 
-.trackItemStyling:not(.trackUnavailable):hover .indexNumber{
-}
 
 .mobilePlayButton {
     width: 50%;

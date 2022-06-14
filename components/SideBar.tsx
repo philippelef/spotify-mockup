@@ -4,29 +4,27 @@ import { useFav } from "../context/FavContext"
 import styles from "../styles/SideBar.module.css"
 import Shotgun from "./Utils/Shotgun"
 import Image from 'next/image'
+import LikeButton from "./Utils/LikeButton"
+import FavIconSvg from "./Utils/FavIconSvg"
+import PlaylistIcon from "./Utils/PlaylistIcon"
 
 
 
 const PlaylistElement = ({ playlist }: any) => {
     const router = useRouter()
-    const { favNumber } = useFav()
+
     return (
         <div className={styles.playlistItem}>
             <div className={styles.playlistImage}
                 onClick={() => router.push(playlist.link)}
-            >{
-                    playlist.link === '/favorites' &&
-                    <div className={styles.likeNumber}>
-                        {favNumber}
-                    </div>
-                }
-
-                <Image
+            >
+                <PlaylistIcon />
+                {/* <Image
                     src={playlist.image}
                     width="56px"
                     height="56px"
                     layout="fixed"
-                />
+                /> */}
             </div>
             <div className={styles.playlistName}>
                 {playlist.name}
@@ -35,13 +33,29 @@ const PlaylistElement = ({ playlist }: any) => {
         </div>)
 }
 
+const FavIcon = () => {
+    const { favNumber } = useFav()
+
+    return (
+        <div className={styles.favIcon}>
+            <div className={styles.playlistImage}>
+                <FavIconSvg />
+            </div>
+            <div className={styles.likeNumber}>
+                {favNumber}
+            </div>
+        </div>
+    )
+}
+
+
 const PlaylistMap = () => {
     const playlistMap = [
-        {
-            name: 'Likes songs',
-            'link': '/favorites',
-            image: '/likesIconEmpty.png'
-        },
+        // {
+        //     name: 'Likes songs',
+        //     'link': '/favorites',
+        //     image: '/likesIconEmpty.png'
+        // },
         {
             name: 'Top (unsorted)',
             'link': '/',
@@ -64,6 +78,7 @@ const SideBar = () => {
     return (
         <div className={styles.sideBarMain}>
             <Shotgun />
+            <FavIcon />
             <PlaylistMap />
         </div>
     )
