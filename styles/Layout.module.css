@@ -22,9 +22,12 @@
 
 .Root {
     /* height: 100vh; */
-    height: --webkit-fill-available;
-    max-height: 100vh;
+    /* min-height: 100vh; */
+    /* max-height: -webkit-fill-available; */
+    /* max-height: 100vh; */
     display: grid;
+    height: 100vh;
+    max-height: -webkit-fill-available;
 
 }
   

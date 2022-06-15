@@ -2,7 +2,7 @@
   .PlayerFooterWrapper {
     border-bottom: solid 1px rgba(255, 255, 255, 0.395);
     grid-template-columns: 3fr auto !important;
-    padding: 0.75em 2em 0.75em 0.75em !important;
+    padding: 0.75em 1em 0.75em 0.75em !important;
 
     --footer-height: 40px !important;
   }
@@ -50,7 +50,8 @@
 .SongInfo {
   width: 100%;
   height: var(--footer-height);
-  overflow: hidden;
+  /* overflow: hidden; */
+  min-width: 0;
   justify-self: start;
   display: flex;
 }
@@ -95,10 +96,7 @@
 
 
 .ControlsWrapper {
-  /* height: 30px; */
-  /* width: 40%; */
-  /* min-width: 90px; */
-  /* margin: 0 0em; */
+  width: 125px;
   display: flex;
   height: var(--footer-height);
   justify-content: center;
@@ -116,8 +114,8 @@
   /* justify-content: center;
   align-items: center; */ 
   margin: 0 1.5em;
-  width: 32px;
   height: 32px;
+  width: 32px;
   background-color: white;
   border-radius: 3em;
   display: flex;
@@ -131,11 +129,13 @@
 
 .RoundPlay {
   height: 14px;
+  width: 14px;
 }
 
 .sideButton {
   opacity: var(--opacity-unactive);
   height: 14px;
+  width: 14px;
 }
 
 .PreviousButton {
