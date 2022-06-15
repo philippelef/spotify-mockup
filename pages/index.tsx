@@ -23,7 +23,7 @@ const Home: NextPage<Props> = (props) => {
 
 
   return (
-    <div className={styles.HomePage} >
+    <div>
       <PlaylistHeader playlist={props.playlist} />
       <TrackList>
         {

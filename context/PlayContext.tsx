@@ -15,7 +15,7 @@ const initialSong: Track = {
 }
 
 
-const initialVolume: number = 0.1
+export const initialVolume: number = 0.5
 const initialMuted = initialVolume == 0 ? true : false
 
 type playContextType = {

@@ -133,7 +133,6 @@
 }
 
 .sideButton {
-  opacity: var(--opacity-unactive);
   height: 14px;
   width: 14px;
 }
@@ -142,8 +141,8 @@
   transform: rotateZ(180deg);
 }
 
-.PlayerFooterWrapper:not(.isMobile), .sideButton {
-  opacity: 100%;
+.PlayerFooterWrapper:not(.isMobile) .sideButton {
+  opacity: var(--opacity-unactive);
 }
 
 .PlayerFooterWrapper:not(.isMobile):not(.ControlsWrapperNoSong) .sideButton:hover {

@@ -5,8 +5,10 @@ import styles from "../styles/PlaylistHeader.module.css"
 
 
 const PlaylistHeader = ({ playlist }: { playlist: PlaylistData }) => {
+
     return (
-        <div className={styles.playlistHeader}>
+        <div
+            className={styles.playlistHeader} >
             <div className={styles.playlistImage}>
                 <Image
                     src={playlist.images[0].url}
@@ -38,7 +40,7 @@ const PlaylistHeader = ({ playlist }: { playlist: PlaylistData }) => {
                 </div>
 
             </div>
-        </div>
+        </div >
     )
 }
 

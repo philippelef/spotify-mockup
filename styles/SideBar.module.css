@@ -123,7 +123,6 @@
     opacity: 70%;
     justify-content: center;
     position: relative;
-    transition: all 0.2s;
 }
 
 .sideBarMain:has(.isMobile), .playlistItem{

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styles from "../../styles/VolumeSlider.module.css"
 import { Range, getTrackBackground } from 'react-range'
-import { usePlay } from '../../context/PlayContext';
+import { initialVolume, usePlay } from '../../context/PlayContext';
 import { useEffect } from 'react';
 
 const STEP = 0.01;
@@ -9,7 +9,7 @@ const MIN = 0;
 const MAX = 1;
 
 const VolumeSlider = ({ rtl }: any) => {
-    const [values, setValues] = React.useState([0.1]);
+    const [values, setValues] = React.useState([initialVolume]);
     const { muted, volume, setVolume } = usePlay()
 
     useEffect(() => {

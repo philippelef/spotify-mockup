@@ -27,11 +27,13 @@ body {
   --clr-background-600: #0e0d0d;
   --clr-background-900: #000000;
 
+  --clr-playlist-background: #121212;
+
   --clr-primary-200: rgb(185, 185, 185);
   --clr-primary-100: white;
   padding: 0;
   margin: 0;
-  background-color: var(--clr-background);
+  /* background-color: var(--clr-background); */
   color: var(--clr-primary-100);
   font-family: Roboto, Arial, Helvetica, sans-serif;
 }
