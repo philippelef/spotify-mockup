@@ -59,7 +59,7 @@ const FavIcon = () => {
                     </div>
                 </div>
                 <div className={styles.playlistName}>
-                    Liked songs
+                    Liked Songs
                 </div>
             </a>
         </Link >
