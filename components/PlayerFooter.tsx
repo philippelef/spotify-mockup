@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { usePlay } from "../context/PlayContext"
 import { Track } from "../helpers/types"
 import styles from "../styles/PlayerFooter.module.css"
@@ -64,10 +64,17 @@ const TrackVisualizer = () => {
 
 
 const Controls = () => {
-    const { play, setPlay, skipSong, previousSong } = usePlay();
+    const { song, play, setPlay, skipSong, previousSong } = usePlay();
+    const [noSong, setNoSong] = useState<boolean>(true)
+
+    useEffect(() => {
+        if (song.name != '') {
+            setNoSong(false)
+        }
+    }, [song])
 
     return (
-        <div className={styles.ControlsWrapper}>
+        <div className={`${styles.ControlsWrapper} ${noSong && styles.ControlsWrapperNoSong}`}>
             <div className={`${styles.PreviousButton} ${styles.sideButton}`}
                 onClick={() => previousSong()}
             >

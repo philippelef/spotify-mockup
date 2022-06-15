@@ -22,6 +22,7 @@
 
 .Root {
     height: 100vh;
+    height: --webkit-fill-available;
     max-height: 100vh;
     display: grid;
 

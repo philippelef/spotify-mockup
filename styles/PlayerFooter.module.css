@@ -79,11 +79,15 @@
   /* place-self: center; */
 }
 
+.ControlsWrapperNoSong {
+  opacity: 80%;
+}
+
 .PlayButton {
   /* background-color: red; */
   /* justify-content: center;
   align-items: center; */ 
-  margin: 0 1em;
+  margin: 0 1.5em;
   width: 32px;
   height: 32px;
   background-color: white;

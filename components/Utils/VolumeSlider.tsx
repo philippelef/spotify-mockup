@@ -55,7 +55,7 @@ const VolumeSlider = ({ rtl }: any) => {
                             style={{
                                 background: getTrackBackground({
                                     values,
-                                    colors: ['#c17aff', '#ccc'],
+                                    colors: ['#c17aff', '#5e5e5e'],
                                     min: MIN,
                                     max: MAX,
                                     rtl
