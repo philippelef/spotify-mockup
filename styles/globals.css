@@ -6,6 +6,8 @@ body {
   overflow: hidden !important;
   overscroll-behavior: none !important;
 
+  /* THIS VALUES ARE FOR REMOVING TEXT SELECTING ABILITY,
+  which was annoying when you try to double click on buttons */
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */

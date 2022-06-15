@@ -21,7 +21,7 @@
  }
 
 .Root {
-    height: -webkit-fill-available;
+    height: 100vh;
     max-height: 100vh;
     display: grid;
 
