@@ -86,8 +86,6 @@ export function PlayProvider({ children }: Props) {
         if (index == null) {
             index = queue.findIndex(elt => elt.id === newSong.id)
         }
-
-
         setQIndex(index)
         handleSong(newSong);
         refPlayer.current.pause()
@@ -197,7 +195,6 @@ export function PlayProvider({ children }: Props) {
                 autoPlay
                 src={song.preview_url}
             >
-                {/* <source  /> */}
             </audio >
             {children}
         </PlayContext.Provider >
