@@ -39,7 +39,7 @@ const FavIcon = () => {
     const { favNumber } = useFav()
 
     return (
-        <Link href='/favorites'>
+        <Link href='/favorites' className={styles.justifyEnd}>
             <a className={styles.playlistItem}>
                 <div className={styles.favIcon}
                 >

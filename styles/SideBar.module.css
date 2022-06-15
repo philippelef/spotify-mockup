@@ -6,9 +6,9 @@
         margin: 1em 3em;
         flex-direction: row;
         height: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr !important;
     }
 
     .shotgunMinimalLogo {
@@ -23,7 +23,15 @@
         display: none !important;
     }
 
-    
+    .favIcon {
+        justify-self: end;
+        width: 100%;
+    justify-content: flex-end !important;
+    }
+
+
+
+
 }
 
 @media screen and (max-width: 950px) and (min-width: 601px) {
@@ -121,6 +129,7 @@
 
 .favIcon {
     height: 100%;
+    
     display: flex;
     justify-content: center;
     /* margin-inline: auto; */
@@ -157,7 +166,7 @@
 
 .playlistName {
     text-overflow: ellipsis;
-        word-break: break-all;
-        white-space: nowrap;
-        overflow: hidden;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
 }
