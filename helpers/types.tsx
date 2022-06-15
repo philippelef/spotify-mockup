@@ -40,7 +40,7 @@ export interface TrackItemProps {
 }
 
 export type Favorites = {
-    favlist: { [id: string]: boolean }
+    favlist: { [id: string]: { isFav: boolean, index: number } }
     totalLength: number,
 }
 

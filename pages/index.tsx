@@ -33,7 +33,7 @@ const Home: NextPage<Props> = (props) => {
                 key={playlistTrack.track.id}
                 track={playlistTrack.track}
                 added_at={playlistTrack.added_at}
-                favValue={props.favorites.favlist[playlistTrack.track.id]}
+                favValue={props.favorites.favlist[playlistTrack.track.id].isFav}
                 index={i}
               />
             )
