@@ -5,19 +5,23 @@ import { Favorites, PlaylistData, Track } from '../helpers/types';
 type favContextType = {
     fav: Favorites;
     addFav: (track: Track) => void;
-    removeFav: (track: Track) => void;
+    removeFav: (track: Track, index: number) => void;
     isFav: (track: Track) => boolean;
     setFav: (favorites: Favorites, change?: boolean) => void;
     favNumber: number;
+    lastDeleted: number;
+    setLastDeleted: (index: number) => void
 };
 
 const favContextDefaultValues: favContextType = {
-    fav: { '0': false },
+    fav: { favlist: { '0': false }, totalLength: 0 },
     addFav: () => { },
     removeFav: () => { },
     isFav: () => false,
     setFav: () => { },
     favNumber: 0,
+    lastDeleted: 0,
+    setLastDeleted: () => { },
 };
 
 const FavContext = createContext<favContextType>(favContextDefaultValues);
@@ -32,10 +36,10 @@ type Props = {
 
 export function initFavorites(playlist: PlaylistData): Favorites {
     // var favList = tracks.map((e) => { e.id: false })
-    var favList: { [id: string]: boolean } = {}
-    playlist.tracks.map((e) => favList[e.track.id] = false)
-    writeFavorites(favList)
-    return favList
+    var favorites: Favorites = { favlist: {}, totalLength: 0 }
+    playlist.tracks.map((e) => favorites.favlist[e.track.id] = false)
+    writeFavorites(favorites)
+    return favorites
 }
 
 export function fetchFavorites(context: any, playlist: PlaylistData): Favorites {
@@ -63,8 +67,9 @@ export function writeFavorites(favorites: Favorites) {
 
 
 export function FavProvider({ children }: Props) {
-    const [fav, handleFav] = useState<Favorites>({});
+    const [fav, handleFav] = useState<Favorites>({ favlist: {}, totalLength: 0 });
     const [favNumber, handleFavNumber] = useState<number>(0)
+    const [lastDeleted, handleLastDeleted] = useState<number>(0)
 
     const setFav = (favorites: Favorites, change?: boolean) => {
         writeFavorites(favorites)
@@ -83,7 +88,7 @@ export function FavProvider({ children }: Props) {
 
     const getFavNumber = (favorites: Favorites): number => {
         var favNumber = 0;
-        for (var [key, value] of Object.entries(favorites)) { value == true && favNumber++ }
+        for (var [key, value] of Object.entries(favorites.favlist)) { value == true && favNumber++ }
         return favNumber
     }
 
@@ -92,7 +97,8 @@ export function FavProvider({ children }: Props) {
             console.error('Cannot Add Fav Twice')
             return false
         }
-        fav[track.id] = true;
+        fav.favlist[track.id] = true;
+        fav.totalLength += track.duration_ms
         setFav(fav, true)
         return true
     }
@@ -102,17 +108,23 @@ export function FavProvider({ children }: Props) {
             console.error('Cannot remove fav that is not already fav')
             return false
         }
-        fav[track.id] = false;
+        fav.favlist[track.id] = false;
+        fav.totalLength -= track.duration_ms
         setFav(fav, false)
         return true
     }
 
+    const setLastDeleted = (index: number) => {
+        handleLastDeleted(-1)
+        handleLastDeleted(index)
+    }
+
     const isFav = (track: Track): boolean => {
-        return fav[track.id] == true
+        return fav.favlist[track.id] == true
     }
 
     const value = {
-        fav, addFav, removeFav, isFav, setFav, handleFav, favNumber
+        fav, addFav, removeFav, isFav, setFav, handleFav, favNumber, lastDeleted, setLastDeleted
     }
 
     return (

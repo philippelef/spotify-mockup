@@ -16,20 +16,29 @@ import styles from "../styles/TrackItem.module.css"
 // This component is essential to put an animation when you unlike a song
 // otherwise it gets instantly unmounted and you can't do anything
 const FavWrapper = ({ playlistTrack, index }: any) => {
-    const { fav } = useFav()
+    const { fav, favNumber, lastDeleted, setLastDeleted } = useFav()
     const [startRemove, setStartRemove] = useState<boolean>(false)
     const [endRemove, setEndRemove] = useState<boolean>(false)
 
+    const [updatedIndex, setUpdatedIndex] = useState<number>(index)
+
     useEffect(() => {
-        if (fav[playlistTrack.track.id] == false) {
+        if (fav.favlist[playlistTrack.track.id] == false) {
             setStartRemove(true)
         }
-    }, [fav[playlistTrack.track.id]])
+    }, [fav.favlist[playlistTrack.track.id]])
+
+    useEffect(() => {
+        console.log("t'es un track numéro: ", lastDeleted)
+    }, [lastDeleted])
 
     if (!endRemove) {
         return (
             <div className={`${startRemove && styles.RemoveAnim}`}
-                onAnimationEnd={() => setEndRemove(true)}>
+                onAnimationEnd={() => {
+                    setEndRemove(true)
+                    setLastDeleted(index)
+                }}>
                 <TrackItem
                     track={playlistTrack.track}
                     index={index}
@@ -46,9 +55,7 @@ const FavWrapper = ({ playlistTrack, index }: any) => {
 
 
 const Favorites: NextPage<Props> = (props) => {
-    const router = useRouter()
-
-    const { setFav } = useFav()
+    const { fav, setFav } = useFav()
     const { initQueue } = usePlay()
 
     useEffect(() => {
@@ -86,7 +93,7 @@ export async function getServerSideProps(context: any) {
     var playlistData: PlaylistData = await fetchPlaylist()
     var favorites = fetchFavorites(context, playlistData)
 
-    var likedTracks: PlaylistTrack[] = playlistData.tracks.filter((e) => favorites[e.track.id] == true)
+    var likedTracks: PlaylistTrack[] = playlistData.tracks.filter((e) => favorites.favlist[e.track.id] == true)
     var newPlaylist: PlaylistData = { name: 'Liked Songs', images: [{ url: '/likedSongs.png' }], tracks: likedTracks }
 
     return {

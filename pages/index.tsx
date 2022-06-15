@@ -33,7 +33,7 @@ const Home: NextPage<Props> = (props) => {
                 key={playlistTrack.track.id}
                 track={playlistTrack.track}
                 added_at={playlistTrack.added_at}
-                favValue={props.favorites[playlistTrack.track.id]}
+                favValue={props.favorites.favlist[playlistTrack.track.id]}
                 index={i}
               />
             )
@@ -52,7 +52,7 @@ export async function getServerSideProps(context: any) {
   return {
     props: {
       playlist: playlistData,
-      favorites: favorites
+      favorites: favorites,
     }
   }
 }

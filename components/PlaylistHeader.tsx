@@ -1,10 +1,13 @@
 import Image from 'next/image'
+import { useEffect } from 'react'
+import { useFav } from '../context/FavContext'
 import { getPlaylistDuration } from '../helpers/getPlaylistDuration'
 import { PlaylistData } from '../helpers/types'
 import styles from "../styles/PlaylistHeader.module.css"
 
 
 const PlaylistHeader = ({ playlist }: { playlist: PlaylistData }) => {
+    const { fav, favNumber } = useFav()
 
     return (
         <div
@@ -31,11 +34,18 @@ const PlaylistHeader = ({ playlist }: { playlist: PlaylistData }) => {
                     </a>
                     {` • `}
                     <a>
-                        {playlist.tracks.length} songs
+                        {playlist.name == 'Liked Songs' ?
+                            `${favNumber} songs` :
+                            `${playlist.tracks.length} songs`}
+
                     </a>
                     {` • `}
                     <a>
-                        {getPlaylistDuration(playlist)}
+                        {
+                            playlist.name == 'Liked Songs' ?
+                                `${Math.floor(fav.totalLength / 60000)} min` :
+                                getPlaylistDuration(playlist)
+                        }
                     </a>
                 </div>
 
