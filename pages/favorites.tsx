@@ -60,6 +60,11 @@ const Favorites: NextPage<Props> = (props) => {
         <div>
             <PlaylistHeader playlist={props.playlist} />
             <TrackList>
+                {props.playlist.tracks.length === 0 &&
+                    <div className={styles.noSongsYet}>
+                        Wow. this is empty.
+                    </div>
+                }
                 {
                     props.playlist.tracks.map((playlistTrack, i) => {
                         return <FavWrapper
