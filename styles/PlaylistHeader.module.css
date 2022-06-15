@@ -23,7 +23,6 @@
 
 @media screen and (min-width: 601px) {
     .playlistHeader {
-        /* padding-right: 10em; */
         height: 30vh;
         max-height: 500px;
         min-height: 340px;
@@ -38,7 +37,6 @@
 
 
     .playlistImage {
-        /* vertical-align: baseline; */
         align-self: flex-end;
         margin-right:24px;
     }
@@ -50,7 +48,6 @@
 
 
 .playlistHeader {
-    /* --background-noise: rgba(0, 0, 255, 0.411); */
     background: linear-gradient(to bottom, transparent 0, var(--clr-playlist-background) 100%), #9131ff2c;
 }
 

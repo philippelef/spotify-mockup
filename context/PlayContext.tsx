@@ -185,8 +185,6 @@ export function PlayProvider({ children }: Props) {
         skipSong, previousSong, initQueue,
     }
 
-    const [ended, setEnded] = useState<boolean>(false)
-
     return (
         <PlayContext.Provider value={value}>
             <audio

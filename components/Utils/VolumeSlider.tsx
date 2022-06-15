@@ -82,13 +82,6 @@ const VolumeSlider = ({ rtl }: any) => {
                             outline: 'none',
                         }}
                     >
-                        {/* <div
-                            style={{
-                                height: '16px',
-                                width: '5px',
-                                backgroundColor: isDragged ? '#548BF4' : '#CCC'
-                            }}
-                        /> */}
                     </div>
                 )}
             />
@@ -97,43 +90,3 @@ const VolumeSlider = ({ rtl }: any) => {
 };
 
 export default VolumeSlider;
-
-// class VolumeSlider extends React.Component {
-//     // const { volume, setVolume, muted } = usePlay()
-//     state = { values: [50] };
-//     render() {
-//         return (
-//             <Range
-//                 step={0.1}
-//                 min={0}
-//                 max={100}
-//                 values={this.state.values}
-//                 onChange={(values) => this.setState({ values })
-//                 }
-//                 renderTrack={({ props, children }) => (
-//                     <div className={styles.Track}
-//                         {...props}
-//                     >
-//                         {children}
-//                     </div>
-//                 )}
-//                 renderThumb={({ props }) => (
-//                     <div className={styles.Thumb}
-//                         {...props}
-//                     />
-//                 )}
-//             />
-//         );
-//     }
-//     //     <input
-//     //     className={styles.inputClass}
-//     //     id="volume"
-//     //     name="volume"
-
-//     //     value={volume}
-//     //     onChange={(event) => setVolume(event.target.valueAsNumber)}
-//     //     type="range">
-//     // </input >
-// }
-
-// export default VolumeSlider

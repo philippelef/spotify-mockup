@@ -11,26 +11,6 @@ import VolumeIcon from "./Utils/VolumeIcon"
 import VolumeMutedIcon from "./Utils/VolumeMutedIcon"
 import { useIsMobile } from "../context/MobileContext"
 
-// const VolumeSlider = () => {
-//     const { volume, setVolume, muted } = usePlay()
-
-//     return (
-//         <div className={styles.volumeWrapper}>
-//             <input
-//                 type="range"
-//                 id="volume"
-//                 name="volume"
-//                 min={0}
-//                 max={1}
-//                 step={0.01}
-//                 value={volume}
-//                 onChange={(event) => setVolume(event.target.valueAsNumber)} />
-//             <a>
-//                 {muted ? 'muted' : ''}
-//             </a>
-//         </div >
-//     )
-// }
 
 const TrackVisualizer = () => {
     const { song } = usePlay()
@@ -94,10 +74,6 @@ const Controls = () => {
             <div className={`${styles.SkipButton} ${styles.sideButton}`}
                 onClick={() => !noSong && skipSong()}>
                 <SkipButton />
-            </div>
-            <div>
-
-                {/* <progress></progress> */}
             </div>
         </div >
     )

@@ -1,10 +1,8 @@
 .Thumb {
-    /* display: none !important; */
     visibility:  hidden;
 }
 
 .volumeSliderWrapper:hover .Thumb {
-    /* display: flex !important; */
     visibility: visible;
 }
 

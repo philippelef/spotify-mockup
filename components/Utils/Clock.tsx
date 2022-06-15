@@ -1,4 +1,4 @@
-const Clock = ({ color }: any) => {
+const Clock = ({ color }: { color: string }) => {
     return (
         <div style={{ height: '16px', width: '16px' }}>
             <svg height="100%" width="100%" viewBox="0 0 16 16"

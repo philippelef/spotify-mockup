@@ -33,7 +33,7 @@ body {
   --clr-primary-100: white;
   padding: 0;
   margin: 0;
-  /* background-color: var(--clr-background); */
+  
   color: var(--clr-primary-100);
   font-family: Roboto, Arial, Helvetica, sans-serif;
 }
