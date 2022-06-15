@@ -33,7 +33,8 @@
   
 .MainView {
     background-color: var(--clr-playlist-background);
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     vertical-align: baseline;
     grid-area: mainView;
 

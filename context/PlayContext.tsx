@@ -86,11 +86,14 @@ export function PlayProvider({ children }: Props) {
         if (index == null) {
             index = queue.findIndex(elt => elt.id === newSong.id)
         }
+
+
         setQIndex(index)
         handleSong(newSong);
+        refPlayer.current.pause()
         refPlayer.current.load()
         if (playInstant && newSong.preview_url != null) {
-            playSong()
+            setPlay(true)
         }
     }
 
@@ -136,7 +139,6 @@ export function PlayProvider({ children }: Props) {
     const playSong = async () => {
         try {
             await refPlayer.current.play()
-            setPlay(true)
         }
         catch (e) {
             refPlayer.current.pause()
@@ -185,17 +187,19 @@ export function PlayProvider({ children }: Props) {
         skipSong, previousSong, initQueue,
     }
 
+    const [ended, setEnded] = useState<boolean>(false)
+
     return (
         <PlayContext.Provider value={value}>
             <audio
                 ref={refPlayer}
                 onEnded={() => skipSong()}
+                autoPlay
+                src={song.preview_url}
             >
-                <source
-                    src={song.preview_url}
-                />
+                {/* <source  /> */}
             </audio >
             {children}
-        </PlayContext.Provider>
+        </PlayContext.Provider >
     );
 }
