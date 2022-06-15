@@ -9,15 +9,29 @@ import FavIconSvg from "./Utils/FavIconSvg"
 import PlaylistIcon from "./Utils/PlaylistIcon"
 import Link from "next/link"
 import { useIsMobile } from "../context/MobileContext"
+import { PlaylistData } from "../helpers/types"
+import path from "path"
+
+type PlaylistElement = {
+    name: string;
+    link: string;
+    image: string;
+}
 
 
+type PlaylistProps = {
+    playlist: PlaylistElement;
+    pathname: string;
+}
 
-const PlaylistElement = ({ playlist }: any) => {
+const PlaylistElement = ({ playlist, pathname }: PlaylistProps) => {
     const router = useRouter()
+
+    const isLocal = router.pathname === pathname
 
     return (
         <Link href='/'>
-            <a className={styles.playlistItem}>
+            <a className={`${styles.playlistItem} ${isLocal && styles.isCurrentPlaylist}`}>
                 <div className={styles.playlistImage}
                     onClick={() => router.push(playlist.link)}
                 >
@@ -37,27 +51,23 @@ const PlaylistElement = ({ playlist }: any) => {
     )
 }
 
-const FavIcon = () => {
+const FavIcon = ({ pathname }: { pathname: string }) => {
+    const router = useRouter()
     const { favNumber } = useFav()
+
+    const isLocal = router.pathname === pathname
 
     return (
         <Link href='/favorites' className={styles.justifyEnd}>
-            <a className={styles.playlistItem}>
+            <a className={`${styles.playlistItem} ${isLocal && styles.isCurrentPlaylist}`}>
                 <div className={styles.favIcon}
                 >
                     <div className={styles.favIconSquare}>
                         <div className={styles.playlistImage}>
-                            {/* <Image
-                                src="/likesWhite.png"
-                                width="100%"
-                                height="100%"
-                                layout="responsive"
-                            /> */}
                             <FavIconSvg />
                             <div className={styles.likeNumber}>
                                 {favNumber}
                             </div>
-                            {/* <FavIconSvg /> */}
                         </div>
                     </div>
                 </div>
@@ -71,15 +81,10 @@ const FavIcon = () => {
 
 
 const PlaylistMap = () => {
-    const playlistMap = [
-        // {
-        //     name: 'Likes songs',
-        //     'link': '/favorites',
-        //     image: '/likesIconEmpty.png'
-        // },
+    const playlistMap: PlaylistElement[] = [
         {
             name: 'Top (unsorted)',
-            'link': '/',
+            link: '/',
             image: '/mainPlaylist.png'
         },
     ]
@@ -88,7 +93,7 @@ const PlaylistMap = () => {
         <div className={styles.playlistMap}>
             {playlistMap.map((e) => {
                 return (
-                    <PlaylistElement playlist={e} key={e.link} />
+                    <PlaylistElement playlist={e} key={e.link} pathname={"/"} />
                 )
             })}
         </div>
@@ -98,13 +103,11 @@ const PlaylistMap = () => {
 const SideBar = () => {
     const { isMobile } = useIsMobile()
 
-    console.log("isMobile: ", isMobile)
-
     return (
         <div className={`${styles.sideBarMain} ${isMobile && styles.isMobile}`}>
             <Shotgun />
             <PlaylistMap />
-            <FavIcon />
+            <FavIcon pathname="/favorites" />
         </div>
     )
 }

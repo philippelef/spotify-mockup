@@ -58,7 +58,7 @@
     }
 
     .playlistItem {
-        margin-top: 16px;
+        margin-top: 24px;
         flex-direction: column !important;
         width: var(--square-length);
     }
@@ -113,6 +113,10 @@
     width: inherit;
 }
 
+.isCurrentPlaylist {
+    opacity: 100% !important;
+}
+
 .playlistItem {
     cursor: pointer;
     display: flex;
@@ -123,7 +127,7 @@
 }
 
 .sideBarMain:has(.isMobile), .playlistItem{
-    opacity: 100% !important;
+    /* opacity: 100% !important; */
 }
 
 .sideBarMain:not(.isMobile) .playlistItem:hover {
