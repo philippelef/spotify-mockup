@@ -9,6 +9,7 @@ import VolumeSlider from "./Utils/VolumeSlider"
 import Image from 'next/image'
 import VolumeIcon from "./Utils/VolumeIcon"
 import VolumeMutedIcon from "./Utils/VolumeMutedIcon"
+import { useIsMobile } from "../context/MobileContext"
 
 // const VolumeSlider = () => {
 //     const { volume, setVolume, muted } = usePlay()
@@ -121,14 +122,15 @@ const VolumeControls = () => {
 
 
 const PlayerFooter = () => {
+    const { isMobile } = useIsMobile()
     return (
-        <div className={styles.PlayerFooterWrapper}>
+        <div className={`${styles.PlayerFooterWrapper} ${isMobile && styles.isMobile}`}>
             <TrackVisualizer />
             <Controls />
             <div className={styles.volumeWrapper}>
                 <VolumeControls />
             </div>
-        </div>
+        </div >
     )
 }
 

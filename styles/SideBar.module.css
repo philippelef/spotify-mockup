@@ -116,14 +116,22 @@
 .playlistItem {
     cursor: pointer;
     display: flex;
+    opacity: 70%;
     justify-content: center;
     position: relative;
-    opacity: 80%;
     transition: all 0.2s;
 }
 
-.playlistItem:hover {
+.sideBarMain:has(.isMobile), .playlistItem{
+    opacity: 100% !important;
+}
+
+.sideBarMain:not(.isMobile) .playlistItem:hover {
     opacity: 100%;
+}
+
+.isMobile {
+    /* opacity: 100% !important; */
 }
 
 

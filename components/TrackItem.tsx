@@ -8,6 +8,7 @@ import styles from "../styles/TrackItem.module.css"
 import PlayButton from "./Utils/PlayButton"
 import PauseButton from "./Utils/PauseButton"
 import LikeButton from "./Utils/LikeButton"
+import { useIsMobile } from "../context/MobileContext"
 
 const Index = ({ unavailable, isCurrentSong, play, index }: any) => {
     if (unavailable) {
@@ -49,7 +50,8 @@ function duration_parse(duration_ms: number): string {
 }
 
 
-const TrackItem = ({ track, index, favValue, added_at, isMobile }: any) => {
+const TrackItem = ({ track, index, favValue, added_at }: any) => {
+    const { isMobile } = useIsMobile()
     const dateAdded: string = date_parse(added_at)
     const trackDuration: string = duration_parse(track.duration_ms)
 

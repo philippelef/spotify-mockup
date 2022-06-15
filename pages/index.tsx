@@ -16,8 +16,6 @@ const Home: NextPage<Props> = (props) => {
   const { initQueue } = usePlay()
   const { setFav } = useFav()
 
-  const [isMobile, setIsMobile] = useState<boolean>(false)
-
   useEffect(() => {
     initQueue(props.playlist.tracks.map((e) => e.track))
     setFav(props.favorites)
@@ -25,14 +23,13 @@ const Home: NextPage<Props> = (props) => {
 
 
   return (
-    <div className={styles.HomePage} onTouchStart={() => setIsMobile(true)}>
+    <div className={styles.HomePage} >
       <PlaylistHeader playlist={props.playlist} />
       <TrackList>
         {
           props.playlist.tracks.map((playlistTrack, i) => {
             return (
               <TrackItem
-                isMobile={isMobile}
                 key={playlistTrack.track.id}
                 track={playlistTrack.track}
                 added_at={playlistTrack.added_at}

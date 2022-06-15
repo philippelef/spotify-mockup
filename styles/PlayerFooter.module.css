@@ -142,7 +142,7 @@
   transform: rotateZ(180deg);
 }
 
-.ControlsWrapper:not(.ControlsWrapperNoSong) .sideButton:hover {
+.ControlsWrapper:not(.ControlsWrapperNoSong):not(.isMobile) .sideButton:hover {
   opacity: 100%;
 }
 

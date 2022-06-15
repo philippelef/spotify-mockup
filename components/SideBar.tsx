@@ -8,6 +8,7 @@ import LikeButton from "./Utils/LikeButton"
 import FavIconSvg from "./Utils/FavIconSvg"
 import PlaylistIcon from "./Utils/PlaylistIcon"
 import Link from "next/link"
+import { useIsMobile } from "../context/MobileContext"
 
 
 
@@ -20,12 +21,13 @@ const PlaylistElement = ({ playlist }: any) => {
                 <div className={styles.playlistImage}
                     onClick={() => router.push(playlist.link)}
                 >
-                    <Image
+                    {/* <Image
                         src="/mainPlaylist.png"
                         width="100%"
                         height="100%"
                         layout="responsive"
-                    />
+                    /> */}
+                    <PlaylistIcon />
                 </div>
                 <div className={styles.playlistName}>
                     {playlist.name}
@@ -45,12 +47,13 @@ const FavIcon = () => {
                 >
                     <div className={styles.favIconSquare}>
                         <div className={styles.playlistImage}>
-                            <Image
-                                src="/likedSongs.png"
+                            {/* <Image
+                                src="/likesWhite.png"
                                 width="100%"
                                 height="100%"
                                 layout="responsive"
-                            />
+                            /> */}
+                            <FavIconSvg />
                             <div className={styles.likeNumber}>
                                 {favNumber}
                             </div>
@@ -93,8 +96,12 @@ const PlaylistMap = () => {
 }
 
 const SideBar = () => {
+    const { isMobile } = useIsMobile()
+
+    console.log("isMobile: ", isMobile)
+
     return (
-        <div className={styles.sideBarMain}>
+        <div className={`${styles.sideBarMain} ${isMobile && styles.isMobile}`}>
             <Shotgun />
             <PlaylistMap />
             <FavIcon />
