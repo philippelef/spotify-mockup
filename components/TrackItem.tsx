@@ -82,11 +82,8 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
 
     return (
         <div className={`${styles.trackItemStyling}
-        ${isMobile && styles.disable}`
+        ${isMobile && styles.isMobile}`
         }
-            onClick={() => {
-                if (isMobile) { PlayButtonBehavior() }
-            }}
             onDoubleClick={() => PlayButtonBehavior()}
         >
 
@@ -97,7 +94,10 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
                     <Index unavailable={unavailable} isCurrentSong={isCurrentSong} play={play} index={index} />
                 </div>
 
-                <div className={styles.trackNameArtistImage}>
+                <div className={styles.trackNameArtistImage}
+                    onClick={() => {
+                        if (isMobile) { PlayButtonBehavior() }
+                    }}>
                     <div className={styles.imageWrapper}>
                         <div className={`${styles.playImageHover}`}
                             onClick={() => PlayButtonBehavior()}>

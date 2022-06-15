@@ -142,7 +142,11 @@
   transform: rotateZ(180deg);
 }
 
-.ControlsWrapper:not(.ControlsWrapperNoSong):not(.isMobile) .sideButton:hover {
+.PlayerFooterWrapper:not(.isMobile), .sideButton {
+  opacity: 100%;
+}
+
+.PlayerFooterWrapper:not(.isMobile):not(.ControlsWrapperNoSong) .sideButton:hover {
   opacity: 100%;
 }
 

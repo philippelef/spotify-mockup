@@ -21,12 +21,12 @@
         justify-content: flex-end !important;
     }
 
-    .trackItemStyling:not(.disable):not(.trackUnavailable):hover .imageHover {
-        display: none;
+    .trackItemStyling:not(.isMobile) .trackItemWrapper:not(.trackUnavailable):hover .imageHover {
+        display: none !important;
     }
-    
-    .trackItemStyling:not(.disable):not(.trackUnavailable):hover .playImageHover {
-        display: flex;
+
+    .trackItemStyling:not(.isMobile) .trackItemWrapper:not(.trackUnavailable):hover .playImageHover {
+        display: flex !important;
     }
 }
 
@@ -218,23 +218,23 @@
     color: var(--clr-primary-200)
 }
 
-.trackItemStyling:not(.disable):hover {
+.trackItemStyling:not(.isMobile):hover {
     background-color: #f8f8f832;
 }
 
-.trackItemStyling:not(.disable):hover .likeVisibilityWrapper{
+.trackItemStyling:not(.isMobile):hover .likeVisibilityWrapper{
     visibility:visible;
 }
-.trackItemStyling:not(.disable):hover .indexInteract {
+.trackItemStyling:not(.isMobile):hover .indexInteract {
     display:flex;
 }
-.trackItemStyling:not(.disable):hover .indexNumber {
+.trackItemStyling:not(.isMobile):hover .indexNumber {
     display: none;
 }
-.trackItemStyling:not(.disable):hover .trackArtist {
+.trackItemStyling:not(.isMobile):hover .trackArtist {
     color: var(--clr-primary-100) !important;
 }
-.trackItemStyling:not(.disable):hover .trackAlbum {
+.trackItemStyling:not(.isMobile):hover .trackAlbum {
     color: var(--clr-primary-100) !important;
 }
 

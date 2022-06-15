@@ -22,7 +22,7 @@ export function useIsMobile() {
 }
 
 export function IsMobileProvider({ children }: Props) {
-    const [isMobile, handleIsMobile] = useState<boolean>(false);
+    const [isMobile, handleIsMobile] = useState<boolean>(true);
 
     const setIsMobile = (newState: boolean) => {
         handleIsMobile(newState)
