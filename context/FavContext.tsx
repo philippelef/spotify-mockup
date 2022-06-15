@@ -44,7 +44,6 @@ export function fetchFavorites(context: any, playlist: PlaylistData): Favorites 
         return favorites
     }
     catch (e) {
-        console.error("Error while parsing localStorage favorites: ", e)
     }
 
     return initFavorites(playlist)
