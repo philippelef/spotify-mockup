@@ -40,14 +40,16 @@ const TrackVisualizer = () => {
 
     return (
         <div className={styles.SongInfo}>
-            <div className={styles.SongArtwork}>
-                <Image
-                    src={song.album.images[0].url}
-                    layout='fixed'
-                    height="56px"
-                    width="56px"
-                    alt='Song Artwork'
-                />
+            <div >
+                <div className={styles.SongArtwork}>
+                    <Image
+                        src={song.album.images[0].url}
+                        layout='responsive'
+                        height="100%"
+                        width="100%"
+                        alt='Song Artwork'
+                    />
+                </div>
             </div>
             <div className={styles.trackText}>
                 <div className={styles.trackTitle}>
@@ -76,11 +78,11 @@ const Controls = () => {
     return (
         <div className={`${styles.ControlsWrapper} ${noSong && styles.ControlsWrapperNoSong}`}>
             <div className={`${styles.PreviousButton} ${styles.sideButton}`}
-                onClick={() => previousSong()}
+                onClick={() => !noSong && previousSong()}
             >
                 <SkipButton />
             </div>
-            <div className={styles.PlayButton} onClick={() => setPlay(!play)}>
+            <div className={styles.PlayButton} onClick={() => !noSong && setPlay(!play)}>
                 <div className={styles.RoundPlay}>
                     {play ?
                         <PauseButton color='black' /> :
@@ -89,8 +91,12 @@ const Controls = () => {
                 </div>
             </div>
             <div className={`${styles.SkipButton} ${styles.sideButton}`}
-                onClick={() => skipSong()}>
+                onClick={() => !noSong && skipSong()}>
                 <SkipButton />
+            </div>
+            <div>
+
+                {/* <progress></progress> */}
             </div>
         </div >
     )

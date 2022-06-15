@@ -85,7 +85,7 @@
 
     .playlistName {
         margin-left: 16px;
-        font-size: 1em !important;
+        font-size: 0.9em !important;
         line-height: var(--square-length);
     }
 

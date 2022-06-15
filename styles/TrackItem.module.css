@@ -252,3 +252,10 @@
     align-items: center;
 }
 
+
+
+.noSongsYet {
+    font-weight: 300;
+    margin: 16px;
+    color: var(--clr-primary-200)
+} 
