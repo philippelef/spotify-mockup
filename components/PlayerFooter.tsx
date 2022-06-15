@@ -2,74 +2,120 @@ import { useState } from "react"
 import { usePlay } from "../context/PlayContext"
 import { Track } from "../helpers/types"
 import styles from "../styles/PlayerFooter.module.css"
+import PauseButton from "./Utils/PauseButton"
+import PlayButton from "./Utils/PlayButton"
+import SkipButton from "./Utils/SkipButton"
+import VolumeSlider from "./Utils/VolumeSlider"
+import Image from 'next/image'
+import VolumeIcon from "./Utils/VolumeIcon"
+import VolumeMutedIcon from "./Utils/VolumeMutedIcon"
 
-const VolumeSlider = () => {
-    const { volume, setVolume, muted } = usePlay()
+// const VolumeSlider = () => {
+//     const { volume, setVolume, muted } = usePlay()
+
+//     return (
+//         <div className={styles.volumeWrapper}>
+//             <input
+//                 type="range"
+//                 id="volume"
+//                 name="volume"
+//                 min={0}
+//                 max={1}
+//                 step={0.01}
+//                 value={volume}
+//                 onChange={(event) => setVolume(event.target.valueAsNumber)} />
+//             <a>
+//                 {muted ? 'muted' : ''}
+//             </a>
+//         </div >
+//     )
+// }
+
+const TrackVisualizer = () => {
+    const { song } = usePlay()
+
+    if (song.id == '') {
+        return (<div></div>)
+    }
 
     return (
-        <div style={{ width: "200px" }}>
-            <input
-                type="range"
-                id="volume"
-                name="volume"
-                min={0}
-                max={1}
-                step={0.01}
-                value={volume}
-                onChange={(event) => setVolume(event.target.valueAsNumber)} />
-            <a>
-                {muted ? 'muted' : ''}
-            </a>
-        </div>
+        <div className={styles.SongInfo}>
+            <div className={styles.SongArtwork}>
+                <Image
+                    src={song.album.images[0].url}
+                    layout='fixed'
+                    height="56px"
+                    width="56px"
+                    alt='Song Artwork'
+                />
+            </div>
+            <div className={styles.trackText}>
+                <div className={styles.trackTitle}>
+                    {song.name}
+                </div>
+                <div className={styles.trackArtist}>
+                    {song.artists[0].name}
+                </div>
+            </div>
+
+        </div >
     )
 }
 
-const PlayButton = ({ play, setPlay }: any) => {
+
+const Controls = () => {
+    const { play, setPlay, skipSong, previousSong } = usePlay();
+
     return (
-        <button onClick={() => setPlay(!play)}>
-            {play ? 'Pause' : 'Play'}
-        </button >
+        <div className={styles.ControlsWrapper}>
+            <div className={`${styles.PreviousButton} ${styles.sideButton}`}
+                onClick={() => previousSong()}
+            >
+                <SkipButton />
+            </div>
+            <div className={styles.PlayButton} onClick={() => setPlay(!play)}>
+                <div className={styles.RoundPlay}>
+                    {play ?
+                        <PauseButton color='black' /> :
+                        <PlayButton color='black' />
+                    }
+                </div>
+            </div>
+            <div className={`${styles.SkipButton} ${styles.sideButton}`}
+                onClick={() => skipSong()}>
+                <SkipButton />
+            </div>
+        </div >
     )
 }
 
-const PreviousButton = () => {
-    const { previousSong } = usePlay()
 
+const VolumeControls = () => {
+    const { muted, setMuted } = usePlay()
     return (
-        <button onClick={() => previousSong()}>
-            Previous
-        </button>
+        <>
+            <div className={styles.VolumeIcon}
+                onClick={() => setMuted(!muted)}
+            >
+                {muted ? <VolumeMutedIcon /> : <VolumeIcon />}
+            </div>
+            <div className={styles.VolumeSlider}>
+                <VolumeSlider />
+            </div>
+        </>
     )
-
-}
-
-const SkipButton = () => {
-    const { skipSong } = usePlay()
-
-    return (
-        <button onClick={() => skipSong()}>
-            Skip
-        </button>
-    )
-
 }
 
 
 const PlayerFooter = () => {
-    const { play, setPlay, song } = usePlay()
-
     return (
         <div className={styles.PlayerFooterWrapper}>
-            <div className={styles.ControlsWrapper}>
-                <PreviousButton />
-                <PlayButton play={play} setPlay={setPlay} />
-                <SkipButton />
-                <VolumeSlider />
+            <TrackVisualizer />
+            <Controls />
+            <div className={styles.volumeWrapper}>
+                <VolumeControls />
             </div>
-            <div className={styles.SongInfoWrapper}>
-                {song.name}
-            </div>
-        </div >
+        </div>
     )
 }
 

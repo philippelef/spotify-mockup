@@ -167,6 +167,15 @@ export function PlayProvider({ children }: Props) {
         }
     }, [volume])
 
+    useEffect(() => {
+        if (muted == true) {
+            refPlayer.current.volume = 0;
+        }
+        else {
+            refPlayer.current.volume = volume;
+        }
+    }, [muted])
+
 
     const value = {
         play, setPlay,

@@ -1,19 +1,132 @@
-.PlayerFooterWrapper {
-    height: 100%;
-    width: 100%;
-    background-color: var(--clr-background-200);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+@media screen and (max-width: 600px) {
+  .PlayerFooterWrapper {
+    border-bottom: solid 1px rgba(255, 255, 255, 0.395);
   }
+}
 
-.ControlsWrapper {
-  width: 200px;
+.PlayerFooterWrapper {
+  padding: 16px 24px;
+  background-color: var(--clr-background-200);
+
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  grid-gap: 16px;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--clr-primary-200)
+}
+
+.SongInfo {
+  width: 100%;
+  height: 56px;
+  overflow: hidden;
+  justify-self: start;
   display: flex;
+  /* height: 100%; */
+}
+
+.SongArtwork {
+  height: 56px;
+  width: 56px;
+  margin-right: 0.8em;
 }
 
 
-.SongInfoWrapper {
-  width: 200px;
+.trackText {
+  /* width: inherit; */
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: flex-start;
+}
+
+
+.trackTitle {
+  padding: 0.2em 0;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--clr-primary-100)
+}
+
+.trackArtist {
+  word-break: break-all;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  /* color: white !important; */
+}
+
+
+
+.ControlsWrapper {
+  /* height: 30px; */
+  /* width: 40%; */
+  /* min-width: 90px; */
+  /* margin: 0 0em; */
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
+  /* place-self: center; */
+}
+
+.PlayButton {
+  /* background-color: red; */
+  /* justify-content: center;
+  align-items: center; */ 
+  margin: 0 1em;
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  border-radius: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.RoundPlay {
+  height: 14px;
+}
+
+.sideButton {
+  opacity: 80%;
+  height: 14px;
+}
+
+.PreviousButton {
+  transform: rotateZ(180deg);
+}
+
+.sideButton:hover {
+  opacity: 100%;
+}
+
+.volumeWrapper {
+  width: 125px;
+  
+  justify-self: flex-end;
+  /* margin: auto 0; */
+
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.VolumeIcon {
+  /* margin-right: 1em; */
+  height: 1.5em;
+}
+
+.VolumeSlider {
+  flex-grow: 9;
+
 }

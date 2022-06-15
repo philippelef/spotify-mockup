@@ -4,12 +4,11 @@
         flex-direction: column;
         display: flex;
 
-        padding: 0 16px 2em;
+        padding: 16px 16px 2em;
     }
 
     .playlistImage {
         align-self: center;
-        margin-bottom: 1em;
     }
 
     .playlistTitle {
@@ -17,6 +16,7 @@
     }
 
     .playlistType {
+        margin-top: 1em;
         font-size: 0.7rem !important;
     }
 }
