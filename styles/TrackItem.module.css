@@ -158,18 +158,21 @@
     justify-self: end;
 }
 
-.likeButton {   
-    height: 16px;
+.likeButton {
+    position: relative;   
+    height: 20px !important;
+    width: 20px !important
 }
 
-.likeVisibilityWrapper {
-    height: 16px;
+.trackItemStyling:not(.isMobile) .likeVisibilityWrapper {
+    /* height: 16px; */
     visibility: hidden;
 }
 
 .duration {
     /* min-width: 0; */
     margin-left: 1.5em;
+    margin-block: auto;
     vertical-align: middle;
 }
 
