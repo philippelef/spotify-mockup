@@ -141,9 +141,8 @@
 }
 
 .volumeWrapper {
-  width: 125px;
+  width: 150px;
   justify-self: flex-end;
-
   display: flex;
   gap: 16px;
   justify-content: space-between;
@@ -154,6 +153,8 @@
   height: 1.5em;
   opacity: var(--opacity-unactive);
   transition: all 0.1s;
+  flex-grow: 1;
+  width: 24px;
 }
 
 .VolumeIcon:hover {
@@ -161,6 +162,5 @@
 }
 
 .VolumeSlider {
-  flex-grow: 9;
-
+  flex-grow: 10;
 }

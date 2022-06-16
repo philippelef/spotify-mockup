@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project Info
+Listen to our playlist and save the songs you like!
 
-## Getting Started
+*built with NextJS - React - Apollo - Typescript - Vercel*
 
-First, run the development server:
-
+# Installation
 ```bash
-npm run dev
-# or
-yarn dev
+yarn install
+```
+```bash
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Running the server and serving the website
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Run the server by using either yarn or npm.
+```bash
+yarn build
+yarn start
+```
+```bash
+npm run build
+npm start
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# Mobile responsiveness
+Although this two pages website is imitating the spotify webplayer design and functionnalities, it packs more versatility and responsiveness, such as a full mobile adaptability.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+When using the site on mobile, 'onTouchStart' event is triggered, making all the hovering behaviour disabled.
+You just need to tap on a song info as you would on the spotify app to listen to the songs, compared to double-clicking or clicking the play button that appears when you hover the song info.
 
-## Learn More
+# GraphQL and unavailability
+The given Shotgun GraphQL API also had some issues. Wanted or not, some songs did not feature a prevew_url element, making them unavailable. Such songs have specific behaviour and are greyed out on the page. This is normal and it was done to show such unavailability.
 
-To learn more about Next.js, take a look at the following resources:
+# Edge cases and known bugs.
+- The Shotgun Logo is a placeholder and has no utility. Its existence can be unnatural as no interaction can be done with it, which is a but confusing.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- When you remove a song from the liked songs playlist, it does not remove it from the queue while you are still on the liked songs page.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- If you are on a mobile device that has a window width superior to 600px, the volume slider will appear. If you use an iPad for example on horizontal view, it will be the case. You cannot with a html5 audio tag change de volume, making the volume slider useless (Web Audio API could do it I think). It is useful however for audio muting, which works regardless of the device.
 
-## Deploy on Vercel
+# What could have been better?
+Some features are still not as perfect as they could be. For example, a more extensive use of caching could be a great way to speed up the page load, especially when switching between the main playlist and the liked songs: a new GraphQL Apollo Client is created and a query is made everytime on of these two pages load, even though the information fetched should be the same everytime.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Also I think the use of UseEffect and UseState are not optimized and components reload too often in my opinion.

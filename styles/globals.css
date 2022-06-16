@@ -1,9 +1,25 @@
 html {
 }
-body {
 
-  overflow: hidden !important;
-  overscroll-behavior: none !important;
+/* :root {
+ --app-height: 100%;
+} */
+
+
+body {
+  padding: 0;
+  margin: 0;
+
+  /* overflow: hidden;/ */
+  /* width: 100vw; */
+  /* height: 100vh; */
+  /* height: var(-—app-height); */
+  
+  color: var(--clr-primary-100);
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+
+  /* overflow: hidden !important; */
+  /* overscroll-behavior: none !important; */
 
   /* THIS VALUES ARE FOR REMOVING TEXT SELECTING ABILITY,
   which was annoying when you try to double click on buttons */
@@ -31,11 +47,6 @@ body {
 
   --clr-primary-200: rgb(185, 185, 185);
   --clr-primary-100: white;
-  padding: 0;
-  margin: 0;
-  
-  color: var(--clr-primary-100);
-  font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
 

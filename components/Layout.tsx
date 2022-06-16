@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useIsMobile } from "../context/MobileContext";
 import styles from "../styles/Layout.module.css"
 import PlayerFooter from "./PlayerFooter";
@@ -12,7 +12,8 @@ const Layout = ({ children }: Props) => {
     const { setIsMobile } = useIsMobile()
 
     return (
-        <div className={styles.Root} onTouchStart={() => setIsMobile(true)}>
+        <div className={styles.Root}
+            onTouchStart={() => setIsMobile(true)}>
             <div className={styles.SideBar}>
                 <SideBar />
             </div>

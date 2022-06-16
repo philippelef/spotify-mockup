@@ -28,7 +28,8 @@ const VolumeSlider = ({ rtl }: any) => {
             style={{
                 display: 'flex',
                 justifyContent: 'center',
-                flexWrap: 'wrap'
+                flexWrap: 'wrap',
+                width: '100%',
             }}
         >
             <Range

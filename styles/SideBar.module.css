@@ -36,7 +36,7 @@
 
 @media screen and (max-width: 950px) and (min-width: 601px) {
     .sideBarMain {
-        --square-length: 50px;
+        --square-length: 32px;
         padding: 24px 0;
         margin-inline: 16px;
 
@@ -102,13 +102,10 @@
     }
 }
 
-.sideBarMain {
-}
-
 .shotgunMinimalLogo {
     display: none;
     height: var(--square-length);
-    width: inherit;
+    width: var(--square-length);
 }
 
 .isCurrentPlaylist {

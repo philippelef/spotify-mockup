@@ -22,8 +22,18 @@
 
 .Root {
     display: grid;
-    height: 100vh;
-    max-height: -webkit-fill-available;
+    /* scrollbar-color: red blue; */
+    /* height: 100vh;
+    max-height: -webkit-fill-available; */
+    /* position: relative; */
+    /* height: 100vh; */
+    position: absolute;
+    top: 0; right: 0; left: 0; bottom: 0;
+    /* height: 100vh; */
+    /* height: -webkit-fill-available; */
+    /* height: 100% !important; */
+    overflow: hidden;
+    /* width: -webkit-fill-available; */
 
 }
   
