@@ -26,8 +26,10 @@ npm start
 # Mobile responsiveness
 Although this two pages website is imitating the spotify webplayer design and functionnalities, it packs more versatility and responsiveness, such as a full mobile adaptability.
 
-When using the site on mobile, 'onTouchStart' event is triggered, making all the hovering behaviour disabled.
+When using the site on mobile, 'onTouchStart' event is triggered, making all the hovering behaviour disabled (no user-agent sniffing).
 You just need to tap on a song info as you would on the spotify app to listen to the songs, compared to double-clicking or clicking the play button that appears when you hover the song info.
+
+The mobile responsiveness is one of the **best features of this website** and I am proud to have done it.
 
 # GraphQL and unavailability
 The given Shotgun GraphQL API also had some issues. Wanted or not, some songs did not feature a prevew_url element, making them unavailable. Such songs have specific behaviour and are greyed out on the page. This is normal and it was done to show such unavailability.
