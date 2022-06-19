@@ -1,6 +1,8 @@
 # Project Info
 Listen to our playlist and save the songs you like!
 
+Go to the deployed version (vercel) [here](https://spotify-mockup.freddies.fr)
+
 *built with NextJS - React - Apollo - Typescript - Vercel*
 
 # Installation

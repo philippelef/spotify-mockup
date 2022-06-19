@@ -36,7 +36,8 @@ export type PlaylistTrack = {
 
 export interface TrackItemProps {
     index: number,
-    track: Track;
+    track: Track,
+    added_at: string,
 }
 
 export type Favorites = {

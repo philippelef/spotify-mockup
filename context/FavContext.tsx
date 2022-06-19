@@ -46,10 +46,14 @@ export function initFavorites(playlist: PlaylistData): Favorites {
     return favorites
 }
 
-export function fetchFavorites(context: any, playlist: PlaylistData): Favorites {
+export function fetchFavorites(playlist: PlaylistData): Favorites {
     try {
-        var favorites: Favorites = JSON.parse(nookies.get(context).favorites)
-        return favorites
+        // var favorites: Favorites = JSON.parse(nookies.get(context).favorites)
+        var favorites = localStorage.getItem("favorites")
+        if (favorites) {
+            return JSON.parse(favorites)
+        }
+
     }
     catch (e) {
     }
@@ -59,7 +63,9 @@ export function fetchFavorites(context: any, playlist: PlaylistData): Favorites 
 
 export function writeFavorites(favorites: Favorites) {
     try {
-        nookies.set(null, "favorites", JSON.stringify(favorites), { path: "/" })
+        console.log("favorites when writing: ", favorites)
+        localStorage.setItem("favorites", JSON.stringify(favorites))
+        // nookies.set(null, "favorites", JSON.stringify(favorites), { path: "/" })
     }
     catch (e) {
         console.error("Can't write fav")

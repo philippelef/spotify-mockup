@@ -50,7 +50,7 @@ function duration_parse(duration_ms: number): string {
 }
 
 
-const TrackItem = ({ track, index, favValue, added_at }: any) => {
+const TrackItem = ({ track, index, added_at }: TrackItemProps) => {
     const { isMobile } = useIsMobile()
     const dateAdded: string = date_parse(added_at)
     const trackDuration: string = duration_parse(track.duration_ms)
@@ -61,7 +61,7 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
     const unavailable: boolean = track.preview_url == null
 
     const [isCurrentSong, setIsCurrentSong] = useState<boolean>(song === track)
-    const [liked, setLiked] = useState<boolean>(favValue)
+    const [liked, setLiked] = useState<boolean>(false)
 
     useEffect(() => {
         setIsCurrentSong(song.id == track.id)
@@ -77,6 +77,10 @@ const TrackItem = ({ track, index, favValue, added_at }: any) => {
         liked ? removeFav(track) : addFav(track)
         setLiked(!liked)
     }
+
+    useEffect(() => {
+        setLiked(fav.favlist[track.id]?.isFav)
+    }, [fav.favlist[track.id]?.isFav])
 
 
 

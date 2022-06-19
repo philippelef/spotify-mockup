@@ -1,13 +1,11 @@
 
-import { DEFAULT_DEPRECATION_REASON } from "graphql"
 import { NextPage } from "next"
-import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { isArrayBufferView } from "util/types"
 import PlaylistHeader from "../components/PlaylistHeader"
 import TrackItem from "../components/TrackItem"
 import { TrackList } from '../components/TrackList';
 import { fetchFavorites, useFav } from "../context/FavContext"
+import { Favorites } from "../helpers/types";
 import { usePlay } from "../context/PlayContext"
 import { fetchPlaylist } from "../helpers/fetchPlaylist"
 import { PlaylistData, PlaylistTrack, Props } from "../helpers/types"
@@ -38,7 +36,6 @@ const FavWrapper = ({ playlistTrack, index }: FavWrapperProps) => {
                 <TrackItem
                     track={playlistTrack.track}
                     index={fav.favlist[playlistTrack.track.id]?.index}
-                    favValue={true}
                     added_at={playlistTrack.added_at}
                 />
             </div>
@@ -51,30 +48,38 @@ const FavWrapper = ({ playlistTrack, index }: FavWrapperProps) => {
 
 
 const Favorites: NextPage<Props> = (props) => {
+
+    const [favi, setFavi] = useState<PlaylistData>({ name: 'Liked Songs', images: [{ url: '/no_image.png' }], tracks: [] })
+
     const { fav, setFav } = useFav()
     const { initQueue } = usePlay()
 
     useEffect(() => {
-        initQueue(props.playlist.tracks.map((e) => e.track))
-        setFav(props.favorites)
+        var favorites: Favorites = fetchFavorites(props.playlist)
+        setFav(favorites)
+
+        var likedTracks: PlaylistTrack[] = props.playlist.tracks.filter((e) => favorites.favlist[e.track.id].isFav == true)
+        var newPlaylist: PlaylistData = { name: 'Liked Songs', images: [{ url: '/likedSongs.png' }], tracks: likedTracks }
+        setFavi(newPlaylist)
+
+        initQueue(newPlaylist.tracks.map((e) => e.track))
     }, [])
 
     return (
         <div>
-            <PlaylistHeader playlist={props.playlist} />
+            <PlaylistHeader playlist={favi} />
             <TrackList>
-                {props.playlist.tracks.length === 0 &&
+                {favi.tracks.length === 0 &&
                     <div className={styles.noSongsYet}>
                         Wow. this is empty.
                     </div>
                 }
                 {
-                    props.playlist.tracks.map((playlistTrack, i) => {
+                    favi.tracks.map((playlistTrack, i) => {
                         return <FavWrapper
                             key={playlistTrack.track.id}
                             playlistTrack={playlistTrack}
                             index={i}
-                        // added_at={playlistTrack.added_at}
                         />
                     }
                     )
@@ -85,17 +90,13 @@ const Favorites: NextPage<Props> = (props) => {
     )
 }
 
-export async function getServerSideProps(context: any) {
+export async function getStaticProps() {
     var playlistData: PlaylistData = await fetchPlaylist()
-    var favorites = fetchFavorites(context, playlistData)
-
-    var likedTracks: PlaylistTrack[] = playlistData.tracks.filter((e) => favorites.favlist[e.track.id].isFav == true)
-    var newPlaylist: PlaylistData = { name: 'Liked Songs', images: [{ url: '/likedSongs.png' }], tracks: likedTracks }
 
     return {
         props: {
-            playlist: newPlaylist,
-            favorites: favorites
+            playlist: playlistData,
+            favorites: {}
         }
     }
 }
