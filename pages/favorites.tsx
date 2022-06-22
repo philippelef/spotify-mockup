@@ -29,26 +29,24 @@ const FavWrapper = ({ playlistTrack, index }: FavWrapperProps) => {
         }
     }, [fav.favlist[playlistTrack.track.id]?.isFav])
 
-    if (!endRemove) {
-        return (
-            <div className={`${startRemove && styles.RemoveAnim}`}
-                onAnimationEnd={() => setEndRemove(true)}>
-                <TrackItem
-                    track={playlistTrack.track}
-                    index={fav.favlist[playlistTrack.track.id]?.index}
-                    added_at={playlistTrack.added_at}
-                />
-            </div>
-        )
-    }
-    else {
+    if (endRemove) {
         return (<></>)
     }
+
+    return (
+        <div className={`${startRemove && styles.RemoveAnim}`}
+            onAnimationEnd={() => setEndRemove(true)}>
+            <TrackItem
+                track={playlistTrack.track}
+                index={fav.favlist[playlistTrack.track.id]?.index}
+                added_at={playlistTrack.added_at}
+            />
+        </div>
+    )
 }
 
 
 const Favorites: NextPage<Props> = (props) => {
-
     const [favi, setFavi] = useState<PlaylistData>({ name: 'Liked Songs', images: [{ url: '/no_image.png' }], tracks: [] })
 
     const { fav, setFav } = useFav()
@@ -56,6 +54,8 @@ const Favorites: NextPage<Props> = (props) => {
 
     useEffect(() => {
         var favorites: Favorites = fetchFavorites(props.playlist)
+        const tmp = Object.values(favorites.favlist).filter((e) => e.isFav).map((e) => e.index)
+        console.log({ tmp })
         setFav(favorites)
 
         var likedTracks: PlaylistTrack[] = props.playlist.tracks.filter((e) => favorites.favlist[e.track.id].isFav == true)
@@ -76,6 +76,7 @@ const Favorites: NextPage<Props> = (props) => {
                 }
                 {
                     favi.tracks.map((playlistTrack, i) => {
+                        console.log({ playlistTrack, i })
                         return <FavWrapper
                             key={playlistTrack.track.id}
                             playlistTrack={playlistTrack}
