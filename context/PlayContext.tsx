@@ -157,23 +157,13 @@ export function PlayProvider({ children }: Props) {
 
     useEffect(() => {
         refPlayer.current.volume = volume;
-        if (volume == 0) {
-            setMuted(true)
-            refPlayer.current.muted = true;
-        }
-        else {
-            setMuted(false)
-            refPlayer.current.muted = false;
-        }
+        const mutedState: boolean = volume === 0 ? true : false
+        setMuted(mutedState)
+        refPlayer.current.muted = mutedState;
     }, [volume])
 
     useEffect(() => {
-        if (muted == true) {
-            refPlayer.current.volume = 0;
-        }
-        else {
-            refPlayer.current.volume = volume;
-        }
+        refPlayer.current.volume = muted ? 0 : volume;
     }, [muted])
 
 

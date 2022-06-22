@@ -73,9 +73,6 @@ export function writeFavorites(favorites: Favorites) {
 }
 
 
-
-
-
 export function FavProvider({ children }: Props) {
     const [fav, handleFav] = useState<Favorites>(initFav);
     const [favNumber, handleFavNumber] = useState<number>(0)
@@ -93,6 +90,8 @@ export function FavProvider({ children }: Props) {
         else {
             handleFavNumber(getFavNumber(favorites))
         }
+
+        favorites.favlist
 
         // Updating indexes
         var i: number = 0;
