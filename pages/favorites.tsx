@@ -13,13 +13,12 @@ import styles from "../styles/TrackItem.module.css"
 
 type FavWrapperProps = {
     playlistTrack: PlaylistTrack,
-    index: number,
 }
 
 // This component is essential to put an animation when you unlike a song
 // otherwise it gets instantly unmounted and you can't do anything
-const FavWrapper = ({ playlistTrack, index }: FavWrapperProps) => {
-    const { fav, isFav } = useFav()
+const FavWrapper = ({ playlistTrack }: FavWrapperProps) => {
+    const { fav } = useFav()
     const [startRemove, setStartRemove] = useState<boolean>(false)
     const [endRemove, setEndRemove] = useState<boolean>(false)
 
@@ -47,40 +46,37 @@ const FavWrapper = ({ playlistTrack, index }: FavWrapperProps) => {
 
 
 const Favorites: NextPage<Props> = (props) => {
-    const [favi, setFavi] = useState<PlaylistData>({ name: 'Liked Songs', images: [{ url: '/no_image.png' }], tracks: [] })
+    const [likedSongs, setLikedSongs] = useState<PlaylistData>({ name: 'Liked Songs', images: [{ url: '/no_image.png' }], tracks: [] })
 
-    const { fav, setFav } = useFav()
+    const { setFav } = useFav()
     const { initQueue } = usePlay()
 
     useEffect(() => {
-        var favorites: Favorites = fetchFavorites(props.playlist)
-        const tmp = Object.values(favorites.favlist).filter((e) => e.isFav).map((e) => e.index)
-        console.log({ tmp })
+        const favorites: Favorites = fetchFavorites(props.playlist)
         setFav(favorites)
 
-        var likedTracks: PlaylistTrack[] = props.playlist.tracks.filter((e) => favorites.favlist[e.track.id].isFav == true)
-        var newPlaylist: PlaylistData = { name: 'Liked Songs', images: [{ url: '/likedSongs.png' }], tracks: likedTracks }
-        setFavi(newPlaylist)
+        const likedTracks: PlaylistTrack[] = props.playlist.tracks.filter((e) => favorites.favlist[e.track.id].isFav == true)
+        const likedPlaylist: PlaylistData = { name: 'Liked Songs', images: [{ url: '/likedSongs.png' }], tracks: likedTracks }
+        setLikedSongs(likedPlaylist)
 
-        initQueue(newPlaylist.tracks.map((e) => e.track))
+        initQueue(likedPlaylist.tracks.map((e) => e.track))
     }, [])
 
     return (
         <div>
-            <PlaylistHeader playlist={favi} />
+            <PlaylistHeader playlist={likedSongs} />
             <TrackList>
-                {favi.tracks.length === 0 &&
+                {likedSongs.tracks.length === 0 &&
                     <div className={styles.noSongsYet}>
                         Wow. this is empty.
                     </div>
                 }
                 {
-                    favi.tracks.map((playlistTrack, i) => {
+                    likedSongs.tracks.map((playlistTrack, i) => {
                         console.log({ playlistTrack, i })
                         return <FavWrapper
                             key={playlistTrack.track.id}
                             playlistTrack={playlistTrack}
-                            index={i}
                         />
                     }
                     )
@@ -96,8 +92,7 @@ export async function getStaticProps() {
 
     return {
         props: {
-            playlist: playlistData,
-            favorites: {}
+            playlist: playlistData
         }
     }
 }
