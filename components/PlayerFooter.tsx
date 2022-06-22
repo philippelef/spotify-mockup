@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { usePlay } from "../context/PlayContext"
-import { Track } from "../helpers/types"
 import styles from "../styles/PlayerFooter.module.css"
 import PauseButton from "./Utils/PauseButton"
 import PlayButton from "./Utils/PlayButton"

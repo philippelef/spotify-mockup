@@ -1,16 +1,12 @@
-import { Router, useRouter } from "next/router"
-import { useEffect } from "react"
+import { useRouter } from "next/router"
 import { useFav } from "../context/FavContext"
 import styles from "../styles/SideBar.module.css"
 import Shotgun from "./Utils/Shotgun"
-import Image from 'next/image'
-import LikeButton from "./Utils/LikeButton"
 import FavIconSvg from "./Utils/FavIconSvg"
 import PlaylistIcon from "./Utils/PlaylistIcon"
 import Link from "next/link"
 import { useIsMobile } from "../context/MobileContext"
-import { PlaylistData } from "../helpers/types"
-import path from "path"
+
 
 type PlaylistElement = {
     name: string;

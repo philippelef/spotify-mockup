@@ -1,5 +1,4 @@
-import { createContext, useState, useContext, ReactNode, useEffect, useRef } from 'react'
-import nookies from 'nookies'
+import { createContext, useState, useContext, ReactNode } from 'react'
 import { Favorites, PlaylistData, Track } from '../helpers/types';
 
 type favContextType = {
@@ -33,7 +32,6 @@ type Props = {
 };
 
 export function initFavorites(playlist: PlaylistData): Favorites {
-    // var favList = tracks.map((e) => { e.id: false })
     var favorites: Favorites = { favlist: {}, totalLength: 0 }
     var i: number = 0;
 
@@ -48,7 +46,6 @@ export function initFavorites(playlist: PlaylistData): Favorites {
 
 export function fetchFavorites(playlist: PlaylistData): Favorites {
     try {
-        // var favorites: Favorites = JSON.parse(nookies.get(context).favorites)
         var favorites = localStorage.getItem("favorites")
         if (favorites) {
             return JSON.parse(favorites)
@@ -65,7 +62,6 @@ export function writeFavorites(favorites: Favorites) {
     try {
         console.log("favorites when writing: ", favorites)
         localStorage.setItem("favorites", JSON.stringify(favorites))
-        // nookies.set(null, "favorites", JSON.stringify(favorites), { path: "/" })
     }
     catch (e) {
         console.error("Can't write fav")
@@ -84,14 +80,11 @@ export function FavProvider({ children }: Props) {
         // If change argument is provided, we add or remove a fav
         // if no change argument is provided, this means this is an init, and we neeed to recalculate favNumber
         if (change != null) {
-            const newNumber: number = change == true ? favNumber + 1 : favNumber - 1;
-            handleFavNumber(newNumber)
+            handleFavNumber(change == true ? favNumber + 1 : favNumber - 1)
         }
         else {
             handleFavNumber(getFavNumber(favorites))
         }
-
-        favorites.favlist
 
         // Updating indexes
         var i: number = 0;

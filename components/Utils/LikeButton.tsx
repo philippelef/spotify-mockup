@@ -1,13 +1,6 @@
-// import styles from "../../styles/TrackItem.module.css"
-
 const LikeButton = ({ liked }: any) => {
     return (
         <svg height="100%" width="100%" viewBox="0 0 16 16"
-            // className={styles.likeButton}
-            // style={{
-            //     fill: liked ? "var(--clr-accent-500)" : 'transparent'
-            // }}
-            // style={{ visibility: liked }}
             stroke={liked ? "" : "white"}
             strokeWidth="1px"
         >
@@ -23,8 +16,6 @@ const LikeButton = ({ liked }: any) => {
         </svg >
     )
 }
-
-// linear-gradient(to right, rgb(107, 102, 250), rgb(193, 122, 255))
 
 export default LikeButton
 

@@ -1,8 +1,6 @@
 import type { NextPage } from 'next'
-import styles from '../styles/Home.module.css'
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { initFavorites, useFav } from '../context/FavContext';
+import { useEffect } from 'react';
+import { useFav } from '../context/FavContext';
 import { fetchFavorites } from '../context/FavContext';
 import { Favorites, PlaylistData, Props } from '../helpers/types';
 import TrackItem from '../components/TrackItem';

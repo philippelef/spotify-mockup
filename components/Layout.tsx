@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import { useIsMobile } from "../context/MobileContext";
 import styles from "../styles/Layout.module.css"
 import PlayerFooter from "./PlayerFooter";

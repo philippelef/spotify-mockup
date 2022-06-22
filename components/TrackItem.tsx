@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import ReactDOM, { unmountComponentAtNode } from "react-dom"
 import { useFav } from "../context/FavContext"
 import { usePlay } from "../context/PlayContext"
 import { TrackItemProps } from "../helpers/types"
