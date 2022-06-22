@@ -13,7 +13,7 @@ import PlaylistHeader from '../components/PlaylistHeader';
 const Home: NextPage<Props> = (props) => {
 
   const { initQueue } = usePlay()
-  const { fav, setFav } = useFav()
+  const { setFav } = useFav()
 
   useEffect(() => {
     var favorites: Favorites = fetchFavorites(props.playlist)
@@ -51,7 +51,6 @@ export async function getStaticProps() {
   return {
     props: {
       playlist: playlistData,
-      favorites: {},
     }
   }
 }

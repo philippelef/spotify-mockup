@@ -47,5 +47,4 @@ export type Favorites = {
 
 export interface Props {
     playlist: PlaylistData,
-    favorites: Favorites,
 }
