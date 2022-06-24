@@ -3,6 +3,10 @@ Listen to our playlist and save the songs you like!
 
 *built with NextJS - React - Apollo - Typescript - Vercel*
 
+<img width="494" alt="image" src="https://user-images.githubusercontent.com/47006008/175506193-4e8a0067-bf49-4936-9bb6-170ae4036f10.png">
+
+<img width="1377" alt="image" src="https://user-images.githubusercontent.com/47006008/175506111-16b2fbf7-0f4f-4849-ae41-662e05279102.png">
+
 # Installation
 ```bash
 yarn install
